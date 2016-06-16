@@ -1,0 +1,33 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+ul {
+    list-style: none;
+}
+a {
+    text-decoration: none;
+}
+#header {
+    height: 60px;
+    background-color: #FED;
+}
+#content {
+    max-width: 1500px;
+    min-height: 500px;
+    margin: 0 auto;
+    background-color: #CDE;
+}
+#content-left {
+    width: 30%;
+    height: 500px;
+    float: left;
+    background-color: #546;
+}
+#content-right{
+    width: 70%;
+    height: 500px;
+    background-color: #226;
+    float: left;
+}
