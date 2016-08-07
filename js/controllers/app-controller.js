@@ -1,5 +1,4 @@
-var App = {
-    controller: function () {
-        this.teste = 'asdasd';
-    }
+var AppController = function () {
+    this.teste = 'asdasd';
 }
+AppController.$inject = [];
