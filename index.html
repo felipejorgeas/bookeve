@@ -2,6 +2,7 @@
 <html ng-app="bookeve" lang="pt-br">
     <head>
         <title>BookEve</title>
+        <base href="/bookeve/public_html/">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="css/style.css" />        
@@ -9,85 +10,26 @@
     <body ng-controller="AppController as app" ng-cloak>
         <header id="header">
             <div id="logo">
+                <a href="javascript:void(0);" ng-click="app.loadPage('/')" >
                     <img src="img/logo.svg" />
                     <span class="logoname left">BookEve</span>
+                </a>
             </div>
-            <div id="search" class="right">
-                <img src="" />
+            <div class="right">
+                <div id="search">
+                    <img src="" />
+                </div>
+                <a href="javascript:void(0);" ng-click="app.loadPage('/painel')" >Painel</a>
             </div>
         </header>
-        <section id="content">
-            <section id="content-left">
-                <div id="info-logo">
-                    <img src="img/logo.svg" />
-                    <p class="logoname">BookEve</p>
-                    <p>
-                        Tudo em eventos
-                    </p>
-                </div>
-                <article id="events-mini">
-                    <div class="event-mini-block" ng-repeat="b in [1, 2, 3]">
-                        <div class="event-mini-banner">
-                            <img src="img/banner.jpg" />
-                        </div>
-                        <div class="event-mini-info">
-                            <p>Nome evento</p>
-                            <p>20 outubro 2016</p>
-                        </div>
-                        <div class="perfil">
-                            <img src="img/photo.jpg" />
-                        </div>
-                    </div>
-                </article>
-                <article id="events-small">
-                    <div class="event-small" ng-repeat="c in [1,2,3,4]">
-                        <div class="event-small-banner">
-                            <img src="img/banner.jpg" />
-                        </div>
-                        <div class="event-small-info">
-                            <p>Nome evento</p>
-                            <p>12 agosto 2016</p>
-                        </div>
-                    </div>
-                </article>
-                <p class="text-center text-small">
-                    © Copyright - BookEve
-                </p>
-            </section>
-            <section id="content-right">
-                <div class="event" ng-repeat="a in [1, 2,3,4]">
-                    <div class="event-header">
-                        <div class="event-info">
-                            <p>Nome evento</p>
-                            <p>03 abril 2016</p>
-                        </div>
-                        <div class="perfil">
-                            <img src="img/photo.jpg" />
-                            <p class="text-center">
-                                Paula Souza
-                            </p>
-                        </div>
-                    </div>
-                    <div class="event-banner">
-                        <img src="img/banner.jpg" />
-                    </div>
-                    <div class="event-info">
-                        <p>
-                            Detalhes do evento
-                        </p>
-                    </div>
-                    <div class="event-mais-info">
-                        <button class="right" type="button">+ informações</button>
-                    </div>
-                </div>
-                <div id="paginator">
-                    <button type="button">Página anterior</button>
-                    <button type="button">Próxima página</button>
-                </div>
-            </section>
-        </section>
+        <section id="content" ng-view=""></section>
         <script type="text/javascript" src="js/angular/angular.min.js"></script>
+        <script type="text/javascript" src="js/angular/angular-route.min.js"></script>
+        <script type="text/javascript" src="js/angular/angular-animate.min.js"></script>
         <script type="text/javascript" src="js/controllers/app-controller.js"></script>
+        <script type="text/javascript" src="js/controllers/home-controller.js"></script>
+        <script type="text/javascript" src="js/controllers/painel-controller.js"></script>
+        <script type="text/javascript" src="js/services/authentication-service.js"></script>
         <script type="text/javascript" src="js/bookeve-module.js"></script>
     </body>
 </html>
