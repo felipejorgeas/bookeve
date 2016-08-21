@@ -1,6 +1,6 @@
 var AppController = function ($rootScope, $scope, $location, AuthenticationService) {
     $rootScope.showMyAccount = false;
-    $rootScope.usuario = null;
+    $rootScope.usuarioLogado = null;
     $scope.$on("$routeChangeSuccess", function (evt, current, previous, rejection) {
         $rootScope.showMyAccount = ($location.path() !== '/login' && $location.path() !== '/cadastro');
     });
@@ -31,30 +31,30 @@ var AppController = function ($rootScope, $scope, $location, AuthenticationServi
     $rootScope.logout = function () {
         if (confirm('Deseja sair da sua conta?')) {
             if (AuthenticationService.logout()) {
-                $rootScope.usuario = false;
+                $rootScope.usuarioLogado = false;
                 $rootScope.loadPage('/login');
             }
         }
     }
     $scope.cadastrarResponse = function (result) {
         if (result.ok) {
-            $rootScope.usuario = result.usuario;
+            $rootScope.usuarioLogado = result.data;
             $rootScope.loadPage('/painel');
         } else {
-            alert('Não foi possível realizar o seu cadastro no momento. Por favor tente mais tarde.');
+            alert(result.message);
         }
     }
     $scope.logarResponse = function (result) {
         if (result.ok) {
-            $rootScope.usuario = result.usuario;
+            $rootScope.usuarioLogado = result.data;
             $rootScope.loadPage('/painel');
         } else {
-            alert('Usuário não cadastrado!');
+            alert(result.message);
         }
     }
     $scope.init = function () {
         if (AuthenticationService.isAuthenticated()) {
-            $rootScope.usuario = AuthenticationService.getUserAuthenticated();
+            $rootScope.usuarioLogado = AuthenticationService.getUserAuthenticated();
         }
     }
     $scope.init();

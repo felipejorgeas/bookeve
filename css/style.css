@@ -21,7 +21,7 @@ a {
 a.link-hover:hover {
     border-bottom: 4px solid #00ADEE;
 }
-input{
+input, select{
     width: 100%;
     padding: 10px;
     border-radius: 2px;
@@ -48,6 +48,9 @@ button{
 button:hover{
     background-color: #02A1DB;
 }
+.bd-top{
+    border-top: 1px solid #EFEFEF;
+}
 .default{
     background: #00ADEE;
 }
@@ -59,6 +62,19 @@ button:hover{
 }
 .title{
     font-size: x-large;
+}
+.painel-title{
+    height: 50px;    
+    float: left;
+}
+.painel-title span{
+    line-height: 50px;
+    margin-left: 10px;
+    float: left;
+}
+.painel-title img.action{
+    margin: 13px 0 0 10px;
+    float: left;
 }
 .text-center{
     text-align: center;
@@ -318,6 +334,7 @@ button:hover{
     list-style: none;
     background: #FFF;
     float: left;
+    border-bottom: 1px solid #EFEFEF;
 }
 #painel-menu li{
     display: inline;        
@@ -346,7 +363,72 @@ button:hover{
 #painel-menu li:last-child span{
     border-right: 0;
 }
-
+.grid{
+    width: 100%;
+    background: #FFF;
+    border: 1px solid #EFEFEF;
+    border-collapse: collapse;
+}
+.grid thead{
+    background: #DDD;
+}
+.grid thead th{
+    border-right: 1px solid #EFEFEF;
+}
+.grid thead th:last-child{
+    border-right: 0;
+}
+.grid thead th, .grid tbody td{
+    text-align: left;
+    padding: 10px;
+}
+.grid tbody tr {
+    border-bottom: 1px solid #EFEFEF;
+}
+.grid tbody tr:nth-child(even) {
+    background: #F8F8F8;
+}
+.grid .action{
+    text-align: center;
+}
+img.action{
+    width: 20px;
+    cursor: pointer;
+}
+.form{
+    width: calc(100% - 20px);
+    margin: 0 auto;
+    background: #FFF;
+    display: table;
+    font-size: medium;
+    border-collapse: collapse;
+}
+.form .title{
+    font-size: medium;
+    padding: 10px;
+    background: #DDD;
+    border-bottom: 1px solid #F8F8F8;
+    font-weight: bold;
+}
+.form td{
+    padding: 5px;
+}
+.form tr td{
+    width: 50%;
+}
+.form tr td:first-child:not(.title){
+    text-align: right;
+    width: 30%;
+    padding-right: 20px;
+}
+.form input, .form select{
+    max-width: 300px;
+    font-size: medium;
+}
+.form button{
+    margin: 10px 0;
+    float: none;
+}
 @media screen and (max-width: 1000px){
     #header{
         height: 60px;
@@ -407,5 +489,23 @@ button:hover{
     }
     .event-banner{
         height: 200px;
+    }
+    #painel-menu li span{
+        font-size: small;
+        padding: 0 10px;
+    }
+    .grid{
+        width: calc(100% - 20px);
+        margin: 0 auto;
+        font-size: small;
+    }
+    .form{
+        font-size: small;
+    }
+    .form .title{
+        font-size: small;
+    }
+    .form input, .form select{
+        font-size: small;
     }
 }

@@ -1,6 +1,7 @@
 var PainelController = function ($rootScope, $location, AuthenticationService) {
-    this.eventos = [];
-    this.menu = [
+    var self = this;
+    self.eventos = [];
+    self.menu = [
         {
             title: 'Home',
             active: false,
@@ -28,13 +29,13 @@ var PainelController = function ($rootScope, $location, AuthenticationService) {
         {
             title: 'Usuários',
             active: false,
-            accessLevel: ['administrador', 'organizador'],
+            accessLevel: ['administrador'],
             action: function () {
                 $rootScope.loadPage('/painel/usuarios');
             }
         }
     ];
-    this.getInternalPage = function (page) {
+    self.getInternalPage = function (page) {
         page = page.replace('/painel', '');
         if (page.indexOf('/') !== false) {
             var aux = page.split('/');
@@ -42,10 +43,10 @@ var PainelController = function ($rootScope, $location, AuthenticationService) {
         }
         return page;
     };
-    this.setMenu = function (page) {
-        var internalPage = this.getInternalPage(page);
+    self.setMenu = function (page) {
+        var internalPage = self.getInternalPage(page);
         var accessLevel = AuthenticationService.getUserAuthenticated().accessLevel;
-        this.menu = this.menu.filter(function (item) {
+        self.menu = self.menu.filter(function (item) {
             var result = true;
             if (item.accessLevel.length > 0) {
                 item.accessLevel = item.accessLevel.filter(function (level) {
@@ -55,7 +56,7 @@ var PainelController = function ($rootScope, $location, AuthenticationService) {
             }
             return result;
         });
-        this.menu.map(function (item) {
+        self.menu.map(function (item) {
             item.active = false;
             switch (internalPage) {
                 case 'painel':
@@ -86,10 +87,10 @@ var PainelController = function ($rootScope, $location, AuthenticationService) {
             return item;
         });
     };
-    this.init = function () {
+    self.init = function () {
         var page = $location.path();
-        this.setMenu(page);
+        self.setMenu(page);
     };
-    this.init();
+    self.init();
 }
 PainelController.$inject = ['$rootScope', '$location', 'AuthenticationService'];

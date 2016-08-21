@@ -1,0 +1,115 @@
+<div ng-controller="PainelController as painel">
+    <my-panel-menu></my-panel-menu>
+    <p class="title painel-title">
+        <img ng-if="usuario.accessAdm" class="action" src="img/back.svg" alt="Voltar" title="Voltar" ng-click="app.loadPage('/painel/usuarios')" />
+        <span>Edição de usuário</span>
+    </p>
+    <form ng-submit="usuario.atualizar(usuario.user)">
+        <input type="hidden" ng-model="usuario.user.id" /> 
+        <input type="hidden" ng-model="usuario.user.email" /> 
+        <table class="form">
+            <tr>
+                <td colspan="2" class="title"> 
+                    Dados pessoais
+                </td>
+            </tr>
+            <tr>
+                <td>#ID</td>
+                <td>{{usuario.user.id}}</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>{{usuario.user.email}}</td>
+            </tr>
+            <tr>
+                <td>Nome</td>
+                <td>
+                    <input type="text" ng-model="usuario.user.name" /> 
+                </td>
+            </tr>
+            <tr>
+                <td>Telefone</td>
+                <td>
+                    <input type="text" ng-model="usuario.user.phone" /> 
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="title">  
+                    Endereço
+                </td>
+            </tr>
+            <tr>
+                <td>Rua</td>
+                <td>
+                    <input type="text" ng-model="usuario.user.address" /> 
+                </td>
+            </tr>
+            <tr>
+                <td>Número</td>
+                <td>
+                    <input type="text" ng-model="usuario.user.number" /> 
+                </td>
+            </tr>
+            <tr>
+                <td>Complemento</td>
+                <td>
+                    <input type="text" ng-model="usuario.user.complement" /> 
+                </td>
+            </tr>
+            <tr>
+                <td>Bairro</td>
+                <td>
+                    <input type="text" ng-model="usuario.user.neighborhood" /> 
+                </td>
+            </tr>
+            <tr>
+                <td>Estado</td>
+                <td>
+                    <select>
+                        <option value="Minas Gerais">Minas Gerais</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Cidade</td>
+                <td>
+                    <select> 
+                        <option value="Minas Gerais">Belo Horizonte</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Cep</td>
+                <td>
+                    <input type="text" ng-model="usuario.user.zip" />  
+                </td>
+            </tr>
+            <tr ng-if="usuario.accessAdm">
+                <td colspan="2" class="title">  
+                    Extras
+                </td>
+            </tr>
+            <tr ng-if="usuario.accessAdm">
+                <td>Permissão de acesso</td>
+                <td>
+                    <select ng-model="usuario.user.accessLevel">
+                        <option ng-repeat="access in usuario.accessLevels track by $index" value="{{access.title}}" ng-selected="access.title === usuario.user.accessLevel" >{{access.title}}</option>
+                    </select>
+                </td>
+            </tr>
+            <tr ng-if="usuario.accessAdm">
+                <td>Situação</td>
+                <td>
+                    <select ng-model="usuario.user.active">
+                        <option ng-repeat="status in usuario.status track by $index" value="{{$index}}" ng-selected="$index === usuario.user.active" >{{status.title}}</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="bd-top">
+                    <button type="submit">Atualizar dados</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>

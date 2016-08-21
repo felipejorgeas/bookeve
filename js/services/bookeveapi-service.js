@@ -19,6 +19,31 @@ var BookEveAPIService = function ($http) {
                 $http.get(url).then(function (resp) {
                     callback(resp);
                 });
+            },
+            getAll: function (where, callback) {
+                var url = apiUrl + '/users/';
+                if (where) {
+                    var queryString = Object.keys(where).map(function (k) {
+                        k = encodeURIComponent(k) + '=' + encodeURIComponent(where[k]);
+                        return k;
+                    }).join('&');
+                    url += '?' + queryString;
+                }
+                $http.get(url).then(function (resp) {
+                    callback(resp);
+                });
+            },
+            update: function (user, callback) {
+                var url = apiUrl + '/users/' + user.id;
+                $http.put(url, user).then(function (resp) {
+                    callback(resp);
+                });
+            },
+            delete: function (userId, callback) {
+                var url = apiUrl + '/users/' + userId;
+                $http.delete(url).then(function (resp) {
+                    callback(resp);
+                });
             }
         },
         Event: {

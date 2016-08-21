@@ -8,13 +8,19 @@ var AuthenticationService = function (BookEveAPIService) {
         registerResponse: function (resp) {
             var result = {
                 ok: false,
-                usuario: null
+                message: '',
+                data: null
             };
-            if (resp.status === 200 && resp.data.id > 0) {
-                localStorage.setItem('auth', true);
-                localStorage.setItem('user', JSON.stringify(resp.data));
-                result.usuario = resp.data;
-                result.ok = true;
+            if (resp && resp.status === 200 && resp.data) {
+                var response = resp.data;
+                if (response.status) {
+                    localStorage.setItem('auth', true);
+                    localStorage.setItem('user', JSON.stringify(response.data));
+                    result.data = response.data;
+                    result.ok = true;
+                } else {
+                    result.message = response.message;
+                }
             }
             auth.callback(result);
         },
@@ -25,13 +31,19 @@ var AuthenticationService = function (BookEveAPIService) {
         authResponse: function (resp) {
             var result = {
                 ok: false,
-                usuario: null
+                message: '',
+                data: null
             };
-            if (resp.status === 200 && resp.data.id > 0) {
-                localStorage.setItem('auth', true);
-                localStorage.setItem('user', JSON.stringify(resp.data));
-                result.usuario = resp.data;
-                result.ok = true;
+            if (resp && resp.status === 200 && resp.data) {
+                var response = resp.data;
+                if (response.status) {
+                    localStorage.setItem('auth', true);
+                    localStorage.setItem('user', JSON.stringify(response.data));
+                    result.data = response.data;
+                    result.ok = true;
+                } else {
+                    result.message = response.message;
+                }
             }
             auth.callback(result);
         },

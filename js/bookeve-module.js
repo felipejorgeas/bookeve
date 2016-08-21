@@ -30,26 +30,28 @@ angular.module('bookeve').config(function ($routeProvider) {
             })
             .when('/cadastro', {
                 templateUrl: 'views/cadastro.html',
-                controller: 'PainelController as painel'
             })
             .when('/login', {
                 templateUrl: 'views/login.html',
-                controller: 'PainelController as painel'
             })
             .when('/painel', {
                 templateUrl: 'views/painel.html',
-                controller: 'PainelController as painel',
                 resolve: accessRestrict
             })
             .when('/painel/eventos', {
                 templateUrl: 'views/painel-eventos.html',
-                controller: 'EventoController',
+                controller: 'EventoController as evento',
                 resolve: accessRestrict
             })
             .when('/painel/usuarios', {
                 templateUrl: 'views/painel-usuarios.html',
                 controller: 'UsuarioController as usuario',
                 resolve: accessRestrictAdmin
+            })
+            .when('/painel/usuarios/:id', {
+                templateUrl: 'views/painel-usuarios-edit.html',
+                controller: 'UsuarioController as usuario',
+                resolve: accessRestrict
             })
             .otherwise('/');
 });
