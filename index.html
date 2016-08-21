@@ -5,7 +5,7 @@
         <base href="/bookeve/public_html/">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="css/style.css" />        
+        <link rel="stylesheet" href="css/style.css" />
     </head>
     <body ng-controller="AppController as app" ng-cloak>
         <header id="header">
@@ -19,17 +19,21 @@
                 <div id="search">
                     <img src="" />
                 </div>
-                <a href="javascript:void(0);" ng-click="app.loadPage('/painel')" >Painel</a>
+                <my-account></my-account>
             </div>
         </header>
-        <section id="content" ng-view=""></section>
+        <section id="content" ng-view="" autoscroll="true"></section>
         <script type="text/javascript" src="js/angular/angular.min.js"></script>
         <script type="text/javascript" src="js/angular/angular-route.min.js"></script>
         <script type="text/javascript" src="js/angular/angular-animate.min.js"></script>
         <script type="text/javascript" src="js/controllers/app-controller.js"></script>
         <script type="text/javascript" src="js/controllers/home-controller.js"></script>
         <script type="text/javascript" src="js/controllers/painel-controller.js"></script>
+        <script type="text/javascript" src="js/controllers/evento-controller.js"></script>
+        <script type="text/javascript" src="js/controllers/usuario-controller.js"></script>
         <script type="text/javascript" src="js/services/authentication-service.js"></script>
+        <script type="text/javascript" src="js/services/bookeveapi-service.js"></script>
         <script type="text/javascript" src="js/bookeve-module.js"></script>
+        <script type="text/javascript" src="js/directives.js"></script>
     </body>
 </html>

@@ -13,21 +13,52 @@ ul {
 }
 a {
     text-decoration: none;
+    border-bottom: 4px solid transparent;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+}
+a.link-hover:hover {
+    border-bottom: 4px solid #00ADEE;
+}
+input{
+    width: 100%;
+    padding: 10px;
+    border-radius: 2px;
+    border: 1px solid #EFEFEF;
+    background: #F8F8F8;
+    color: #333;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
 }
 button{
-    min-width: 150px;
     padding: 10px;
     border: none;
     border-radius: 2px;
+    font-size: medium;
     text-align: center;
-    background-color: #EFEFEF;
+    color: #FFF;
+    background-color: #00ADEE;
     cursor: pointer;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
 }
 button:hover{
-    background-color: #CCC;
+    background-color: #02A1DB;
+}
+.default{
+    background: #00ADEE;
+}
+.danger{
+    background: #EC008C;
 }
 .right{
     float: right;
+}
+.title{
+    font-size: x-large;
 }
 .text-center{
     text-align: center;
@@ -37,6 +68,12 @@ button:hover{
 }
 .text-small{
     font-size: small;
+}
+.text-medium{
+    font-size: medium;
+}
+.text-large{
+    font-size: large;
 }
 #header {
     position: fixed;
@@ -48,6 +85,7 @@ button:hover{
 }
 #logo{
     padding: 20px;
+    float: left;
 }
 #logo img{
     width: 100%;
@@ -74,21 +112,30 @@ button:hover{
 }
 .logoname{
     font-size: x-large;
-    color: #00adef;
+    color: #00ADEE;
+}
+.my-account{
+    line-height: 80px;
+    margin-right: 20px;
+    float: right;
+}
+.my-account span.user{
+    cursor: pointer;
 }
 #content {
     max-width: 1500px;
     min-height: 600px;
-    margin: 120px auto 0;
+    margin: 80px auto 0;
+}
+.content-margin-top {
+    margin: 120px auto 0 !important;
 }
 #content-left {
     width: 30%;
-    height: 500px;
     float: left;
 }
 #content-right{
     width: 70%;
-    height: 500px;
     float: left;
     padding-left: 40px; 
 }
@@ -242,4 +289,123 @@ button:hover{
 }
 #paginator button{
     margin: 0 10px;
+}
+.content-login{
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+}
+.content-login form{
+    width: 100%;
+    border: 1px solid #EFEFEF;
+    border-radius: 5px;
+    background: #FFF;
+    padding: 40px 20px;
+    margin: 40px 0 20px;
+}
+.content-login form p{
+    margin-bottom: 20px;
+}
+.content-login form p:last-child{
+    margin-bottom: 0;
+}
+.content-login form button{
+    width: 100%;
+}
+#painel-menu {
+    width: 100%; 
+    list-style: none;
+    background: #FFF;
+    float: left;
+}
+#painel-menu li{
+    display: inline;        
+    cursor: pointer;
+    border-bottom: 4px solid #FFF;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+    float: left;
+}
+#painel-menu li:hover, #painel-menu li.active{
+    border-bottom: 4px solid #00ADEE;
+}
+#painel-menu li.logout:hover{
+    border-bottom: 4px solid #E0025E;
+}
+#painel-menu li.right {
+    float: right;
+}
+#painel-menu li span{
+    display: block;
+    margin: 15px 0 11px;
+    padding: 5px 20px;
+    border-right: 1px solid #EFEFEF;
+}
+#painel-menu li:last-child span{
+    border-right: 0;
+}
+
+@media screen and (max-width: 1000px){
+    #header{
+        height: 60px;
+    }
+    #logo{
+        padding: 10px;
+    }
+    .title{
+        font-size: large;
+    }
+    .my-account{
+        line-height: 60px;
+        margin-right: 10px;
+    }
+    #content{
+        margin-top: 60px;
+        min-height: 0;
+    }
+    .content-margin-top {
+        margin: 70px auto 0 !important;
+    }
+    .content-login{
+        width: calc(100% - 20px);
+    }
+    .content-login form{
+        margin-top: 10px;
+    }
+    #content-left{
+        display: none;
+    } 
+    #content-right{
+        width: 100%;
+        padding: 0 10px;
+    }
+    .event{
+        margin-bottom: 10px;
+    }
+    .event-header .event-info{
+        width: 100%;
+        padding: 10px 20px;
+        border-right: 0;
+    }
+    .event-header .perfil{
+        width: 100%;
+    }
+    .event-header .perfil img{
+        display: none;
+    }
+    .event-header .perfil p{
+        width: 100%;
+        text-align: left;
+        padding: 15px 10px 0;
+        border-top: 1px solid #EFEFEF;
+        float: left;
+    }
+    .event-header .event-info p:first-child{
+        font-size: large !important;
+    }
+    .event-banner{
+        height: 200px;
+    }
 }

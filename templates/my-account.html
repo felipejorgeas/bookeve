@@ -1,0 +1,8 @@
+<div class="my-account" ng-show="app.showMyAccount">
+    <div ng-if="!app.usuario">
+        <a href="javascript:void(0);" class="link-hover" ng-click="app.loadPage('/painel')" >Minha conta</a>
+    </div>
+    <div ng-if="app.usuario">
+        <a href="javascript:void(0);" class="user link-hover" ng-click="app.loadPage('/painel')">{{app.usuario.name}}</a>
+    </div>
+</div>

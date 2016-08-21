@@ -1,9 +1,12 @@
 <div class="content-margin-top">
     <div class="content-login">
         <p class="title">
-            Minha conta
+            Meu cadastro
         </p>
-        <form ng-submit="app.logar(usuario)">
+        <form ng-submit="app.cadastrar(usuario)">
+            <p>
+                <input type="text" ng-model="usuario.nome" placeholder="Nome Completo" />
+            </p>
             <p>
                 <input type="text" ng-model="usuario.email" placeholder="E-mail de acesso" />
             </p>
@@ -11,10 +14,10 @@
                 <input type="password" ng-model="usuario.senha" placeholder="Senha de acesso" />
             </p>
             <p>
-                <button type="submit">Acessar conta</button>
+                <button type="submit">Cadastrar-me</button>
             </p>
             <p>
-                <a href="javascript:void(0);" class="link-hover" ng-click="app.loadPage('/cadastro')">Não tenho cadastro</a>
+                <a href="javascript:void(0);" class="link-hover" ng-click="app.loadPage('/login')">Acessar minha conta</a>
             </p>
         </form>
     </div>

@@ -1,0 +1,10 @@
+<div class="my-panel-menu">
+    <ul id="painel-menu">
+        <li ng-class="{active: item.active}" ng-repeat="item in painel.menu track by $index" ng-click="item.action()">
+            <span>{{item.title}}</span>
+        </li>
+        <li class="logout right">
+            <span ng-click="app.logout()">Sair</span>
+        </li>
+    </ul>
+</div>
