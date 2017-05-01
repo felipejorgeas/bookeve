@@ -99,6 +99,10 @@ button:hover{
     background-color: #FFF;
     border-bottom: 1px solid #EFEFEF;
 }
+#topo{
+    max-width: 1500px;
+    margin: 0 auto;
+}
 #logo{
     padding: 20px;
     float: left;
@@ -142,6 +146,7 @@ button:hover{
     max-width: 1500px;
     min-height: 600px;
     margin: 80px auto 0;
+    padding: 0 10px;
 }
 .content-margin-top {
     margin: 120px auto 0 !important;
@@ -166,11 +171,9 @@ button:hover{
     width: 100%;
     border-bottom: 1px solid #EFEFEF;
     float: left;
-    padding-top: 10px;
 }
 .event-header > .event-info{
-    width: 80%;
-    border-right: 1px solid #EFEFEF;
+    width: 100%;
     padding: 20px;
     float: left;
     font-size: small;
@@ -221,7 +224,6 @@ button:hover{
     width: 100%;
     float: left;
     margin-bottom: 20px;
-    border-bottom: 1px solid #EFEFEF;
 }
 .event-mini-block {
     width: 100%;
@@ -241,12 +243,10 @@ button:hover{
     object-fit: cover;
 }
 .event-mini-info{
-    width: 80%;
+    width: 100%;
     float: left;
     font-size: small;
     padding: 20px;
-    margin-top: 5px;
-    border-right: 1px solid #EFEFEF;    
 }
 .event-mini-info > p:first-child{
     font-size: large;
@@ -429,12 +429,16 @@ img.action{
     margin: 10px 0;
     float: none;
 }
-@media screen and (max-width: 1000px){
+@media screen and (max-width: 991px){
     #header{
         height: 60px;
     }
     #logo{
         padding: 10px;
+    }
+    .logoname{
+        padding-top: 4px;
+        font-size: large;
     }
     .title{
         font-size: large;
@@ -461,14 +465,13 @@ img.action{
     } 
     #content-right{
         width: 100%;
-        padding: 0 10px;
+        padding: 0;
     }
     .event{
         margin-bottom: 10px;
     }
-    .event-header .event-info{
-        width: 100%;
-        padding: 10px 20px;
+    .event-header .event-info{        
+        padding: 10px;
         border-right: 0;
     }
     .event-header .perfil{
@@ -490,12 +493,21 @@ img.action{
     .event-banner{
         height: 200px;
     }
+    .event-info{
+        font-size: small;
+    }
+    .event-info, .event-mais-info{
+        padding: 10px;
+    }
+    #painel-menu{
+        width: calc(100% + 20px);
+        margin-left: -10px;
+    }
     #painel-menu li span{
         font-size: small;
         padding: 0 10px;
     }
-    .grid{
-        width: calc(100% - 20px);
+    .grid{   
         margin: 0 auto;
         font-size: small;
     }
@@ -507,5 +519,22 @@ img.action{
     }
     .form input, .form select{
         font-size: small;
+    }
+    button{
+        font-size: small;
+    }
+}
+@media screen and (min-width: 992px) and (max-width: 1199px){
+    .content-margin-top {
+        margin: 100px auto 0 !important;
+    }
+    .content-login form{
+        margin-top: 20px;
+    }
+    #content-right{
+        padding-left: 20px;
+    }
+    .event, .event-mini-block{
+        margin-bottom: 20px;
     }
 }

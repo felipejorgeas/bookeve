@@ -1,5 +1,5 @@
 var BookEveAPIService = function ($http) {
-    var apiUrl = 'http://192.168.0.11:5555/bookeve-api';
+    var apiUrl = 'http://192.168.0.16:5555/bookeve-api';
     return {
         User: {
             register: function (user, callback) {
@@ -47,6 +47,25 @@ var BookEveAPIService = function ($http) {
             }
         },
         Event: {
+            getOne: function (eventId, callback) {
+                var url = apiUrl + '/events/' + eventId;
+                $http.get(url).then(function (resp) {
+                    callback(resp);
+                });
+            },
+            getAll: function (where, callback) {
+                var url = apiUrl + '/events/';
+                if (where) {
+                    var queryString = Object.keys(where).map(function (k) {
+                        k = encodeURIComponent(k) + '=' + encodeURIComponent(where[k]);
+                        return k;
+                    }).join('&');
+                    url += '?' + queryString;
+                }
+                $http.get(url).then(function (resp) {
+                    callback(resp);
+                });
+            },
         },
         Content: {
         }

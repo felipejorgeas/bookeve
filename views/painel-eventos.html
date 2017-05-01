@@ -1,4 +1,32 @@
 <div ng-controller="PainelController as painel">
     <my-panel-menu></my-panel-menu>
-    <span class="title painel-title">Lista de eventos</span>
+    <p class="title painel-title">
+        <span>Lista de eventos</span>
+    </p>
+    <table class="grid">
+        <thead>
+            <tr>
+                <th>#ID</th>
+                <th>Informações</th>
+                <th class="action"></th>
+                <th class="action"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="event in eventoCtrl.eventos track by $index">
+                <td>{{event.id}}</td>
+                <td>
+                    <p>{{event.name}}</p>
+                    <p>{{event.dateIni | date : 'dd/MM/yyyy'}} até {{event.dateFin | date : 'dd/MM/yyyy'}}</p>
+                    <p>{{event.vacancies}} vagas</p>
+                </td>
+                <td class="action">
+                    <img class="action" src="img/edit.svg" alt="Editar" title="Editar" ng-click="eventoCtrl.editar(event.id)" />
+                </td>
+                <td class="action">
+                    <img class="action" src="img/multiply.svg" alt="Excluir" title="Excluir" ng-click="eventoCtrl.remover(event.id)" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>

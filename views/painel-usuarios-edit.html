@@ -1,12 +1,12 @@
 <div ng-controller="PainelController as painel">
     <my-panel-menu></my-panel-menu>
     <p class="title painel-title">
-        <img ng-if="usuario.accessAdm" class="action" src="img/back.svg" alt="Voltar" title="Voltar" ng-click="app.loadPage('/painel/usuarios')" />
+        <img ng-if="usuarioCtrl.accessAdm" class="action" src="img/back.svg" alt="Voltar" title="Voltar" ng-click="app.loadPage('/painel/usuarios')" />
         <span>Edição de usuário</span>
     </p>
-    <form ng-submit="usuario.atualizar(usuario.user)">
-        <input type="hidden" ng-model="usuario.user.id" /> 
-        <input type="hidden" ng-model="usuario.user.email" /> 
+    <form ng-submit="usuarioCtrl.atualizar(usuarioCtrl.user)">
+        <input type="hidden" ng-model="usuarioCtrl.user.id" /> 
+        <input type="hidden" ng-model="usuarioCtrl.user.email" /> 
         <table class="form">
             <tr>
                 <td colspan="2" class="title"> 
@@ -15,22 +15,22 @@
             </tr>
             <tr>
                 <td>#ID</td>
-                <td>{{usuario.user.id}}</td>
+                <td>{{usuarioCtrl.user.id}}</td>
             </tr>
             <tr>
                 <td>Email</td>
-                <td>{{usuario.user.email}}</td>
+                <td>{{usuarioCtrl.user.email}}</td>
             </tr>
             <tr>
                 <td>Nome</td>
                 <td>
-                    <input type="text" ng-model="usuario.user.name" /> 
+                    <input type="text" ng-model="usuarioCtrl.user.name" /> 
                 </td>
             </tr>
             <tr>
                 <td>Telefone</td>
                 <td>
-                    <input type="text" ng-model="usuario.user.phone" /> 
+                    <input type="text" ng-model="usuarioCtrl.user.phone" /> 
                 </td>
             </tr>
             <tr>
@@ -41,25 +41,25 @@
             <tr>
                 <td>Rua</td>
                 <td>
-                    <input type="text" ng-model="usuario.user.address" /> 
+                    <input type="text" ng-model="usuarioCtrl.user.address" /> 
                 </td>
             </tr>
             <tr>
                 <td>Número</td>
                 <td>
-                    <input type="text" ng-model="usuario.user.number" /> 
+                    <input type="text" ng-model="usuarioCtrl.user.number" /> 
                 </td>
             </tr>
             <tr>
                 <td>Complemento</td>
                 <td>
-                    <input type="text" ng-model="usuario.user.complement" /> 
+                    <input type="text" ng-model="usuarioCtrl.user.complement" /> 
                 </td>
             </tr>
             <tr>
                 <td>Bairro</td>
                 <td>
-                    <input type="text" ng-model="usuario.user.neighborhood" /> 
+                    <input type="text" ng-model="usuarioCtrl.user.neighborhood" /> 
                 </td>
             </tr>
             <tr>
@@ -81,27 +81,27 @@
             <tr>
                 <td>Cep</td>
                 <td>
-                    <input type="text" ng-model="usuario.user.zip" />  
+                    <input type="text" ng-model="usuarioCtrl.user.zip" />  
                 </td>
             </tr>
-            <tr ng-if="usuario.accessAdm">
+            <tr ng-if="usuarioCtrl.accessAdm">
                 <td colspan="2" class="title">  
                     Extras
                 </td>
             </tr>
-            <tr ng-if="usuario.accessAdm">
+            <tr ng-if="usuarioCtrl.accessAdm">
                 <td>Permissão de acesso</td>
                 <td>
-                    <select ng-model="usuario.user.accessLevel">
-                        <option ng-repeat="access in usuario.accessLevels track by $index" value="{{access.title}}" ng-selected="access.title === usuario.user.accessLevel" >{{access.title}}</option>
+                    <select ng-model="usuarioCtrl.user.accessLevel">
+                        <option ng-repeat="access in usuarioCtrl.accessLevels track by $index" value="{{access.title}}" ng-selected="access.title === usuarioCtrl.user.accessLevel" >{{access.title}}</option>
                     </select>
                 </td>
             </tr>
-            <tr ng-if="usuario.accessAdm">
+            <tr ng-if="usuarioCtrl.accessAdm">
                 <td>Situação</td>
                 <td>
-                    <select ng-model="usuario.user.active">
-                        <option ng-repeat="status in usuario.status track by $index" value="{{$index}}" ng-selected="$index === usuario.user.active" >{{status.title}}</option>
+                    <select ng-model="usuarioCtrl.user.active">
+                        <option ng-repeat="status in usuarioCtrl.status track by $index" value="{{$index}}" ng-selected="$index === usuarioCtrl.user.active" >{{status.title}}</option>
                     </select>
                 </td>
             </tr>

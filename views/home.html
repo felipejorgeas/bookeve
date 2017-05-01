@@ -2,22 +2,19 @@
     <section id="content-left">
         <div id="info-logo">
             <img src="img/logo.svg" />
-            <p class="logoname">BookEve</p>
+            <p class="logoname">Bookeve</p>
             <p>
                 Tudo em eventos {{home.teste}}
             </p>
         </div>
         <article id="events-mini">
-            <div class="event-mini-block" ng-repeat="b in [1, 2, 3]">
+            <div class="event-mini-block" ng-repeat="a in [1, 2, 3]">
                 <div class="event-mini-banner">
                     <img src="img/banner.jpg" />
                 </div>
                 <div class="event-mini-info">
-                    <p>Nome evento</p>
+                    <p>Nome do evento</p>
                     <p>20 outubro 2016</p>
-                </div>
-                <div class="perfil">
-                    <img src="img/photo.jpg" />
                 </div>
             </div>
         </article>
@@ -32,31 +29,20 @@
                 </div>
             </div>
         </article>
-        <p class="copyright text-center text-small">
-            © Copyright - BookEve
-        </p>
     </section>
     <section id="content-right">
-        <div class="event" ng-repeat="a in [1, 2, 3, 4]">
+        <div class="event" ng-repeat="event in homeCtrl.eventos">
             <div class="event-header">
                 <div class="event-info">
-                    <p>Nome evento</p>
-                    <p>03 abril 2016</p>
-                </div>
-                <div class="perfil">
-                    <img src="img/photo.jpg" />
-                    <p class="text-center">
-                        Paula Souza
-                    </p>
+                    <p>{{event.name}}</p>
+                    <p>{{event.dateIni | date: 'dd/MM/yyyy'}}</p>
                 </div>
             </div>
             <div class="event-banner">
                 <img src="img/banner.jpg" />
             </div>
             <div class="event-info">
-                <p>
-                    Detalhes do evento
-                </p>
+                <p>{{event.description}}</p>
             </div>
             <div class="event-mais-info">
                 <button class="right" type="button">+ informações</button>
@@ -67,4 +53,7 @@
             <button type="button">Próxima página</button>
         </div>
     </section>
+    <p class="copyright text-center text-small">
+            © Copyright - Bookeve
+        </p>
 </div>

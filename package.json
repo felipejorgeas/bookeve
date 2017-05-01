@@ -1,0 +1,23 @@
+{
+  "name": "bookeve",
+  "version": "1.0.0",
+  "description": "Sistema gerenciador de eventos",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "browser-sync": "^2.18.8",
+    "gulp": "^3.9.1",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-rename": "^1.2.2",
+    "gulp-util": "^3.0.8"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": " "
+  },
+  "author": "Felipe Jorge",
+  "license": "ISC"
+}
