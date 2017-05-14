@@ -43,6 +43,11 @@ angular.module('bookeve').config(function ($routeProvider) {
                 controller: 'EventoController as eventoCtrl',
                 resolve: accessRestrict
             })
+            .when('/painel/eventos/:id', {
+                templateUrl: 'views/painel-eventos-edit.html',
+                controller: 'EventoController as eventoCtrl',
+                resolve: accessRestrict
+            })
             .when('/painel/usuarios', {
                 templateUrl: 'views/painel-usuarios.html',
                 controller: 'UsuarioController as usuarioCtrl',

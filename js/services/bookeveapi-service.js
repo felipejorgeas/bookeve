@@ -66,6 +66,18 @@ var BookEveAPIService = function ($http) {
                     callback(resp);
                 });
             },
+            update: function (event, callback) {
+                var url = apiUrl + '/events/' + event.id;
+                $http.put(url, event).then(function (resp) {
+                    callback(resp);
+                });
+            },
+            delete: function (eventId, callback) {
+                var url = apiUrl + '/events/' + eventId;
+                $http.delete(url).then(function (resp) {
+                    callback(resp);
+                });
+            }
         },
         Content: {
         }

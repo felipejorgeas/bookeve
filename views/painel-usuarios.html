@@ -1,8 +1,11 @@
 <div ng-controller="PainelController as painel">
     <my-panel-menu></my-panel-menu>
-    <p class="title painel-title">
+    <div class="title painel-title">
         <span>Lista de usuários</span>
-    </p>
+        <!--<div class="right">
+            <button type="button" ng-click="loadPage('/painel/usuarios/0')">Novo usuário</button>
+        </div>-->
+    </div>
     <table class="grid">
         <thead>
             <tr>
@@ -21,10 +24,10 @@
                     <p>{{user.accessLevel}}</p>
                 </td>
                 <td class="action">
-                    <img class="action" src="img/edit.svg" alt="Editar" title="Editar" ng-click="usuario.editar(user.id)" />
+                    <img class="action" src="img/edit.svg" alt="Editar" title="Editar" ng-click="usuarioCtrl.editar(user.id)" />
                 </td>
                 <td class="action">
-                    <img class="action" src="img/multiply.svg" alt="Excluir" title="Excluir" ng-click="usuario.remover(user.id)" />
+                    <img class="action" src="img/multiply.svg" alt="Excluir" title="Excluir" ng-click="usuarioCtrl.remover(user.id)" />
                 </td>
             </tr>
         </tbody>

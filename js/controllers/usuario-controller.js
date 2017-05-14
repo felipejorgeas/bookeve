@@ -69,7 +69,7 @@ var UsuarioController = function ($rootScope, $routeParams, BookEveAPIService, A
         }
     };
     self.remover = function (userId) {
-        if (confirm('Deseja sair da sua conta?')) {
+        if (confirm('Deseja remover este usuário?')) {
             BookEveAPIService.User.delete(userId, self.removeUsuarioResponse);
         }
     };

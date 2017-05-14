@@ -4,6 +4,7 @@
     box-sizing: border-box;
     font-family: Trebuchet MS,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Tahoma,sans-serif;
     color: #555;
+    font-size: 12px;
 }
 body{
     background-color: #F8F8F8;
@@ -23,7 +24,7 @@ a.link-hover:hover {
 }
 input, select{
     width: 100%;
-    padding: 10px;
+    padding: 5px 10px;
     border-radius: 2px;
     border: 1px solid #EFEFEF;
     background: #F8F8F8;
@@ -33,10 +34,9 @@ input, select{
     transition: all 0.5s;
 }
 button{
-    padding: 10px;
+    padding: 5px 10px;
     border: none;
     border-radius: 2px;
-    font-size: medium;
     text-align: center;
     color: #FFF;
     background-color: #00ADEE;
@@ -61,20 +61,27 @@ button:hover{
     float: right;
 }
 .title{
-    font-size: x-large;
+    font-size: 14px;
 }
 .painel-title{
+    width: 100%;
     height: 50px;    
     float: left;
 }
+.painel-title div{
+    line-height: 50px;
+}
 .painel-title span{
     line-height: 50px;
-    margin-left: 10px;
     float: left;
+    font-size: 16px;
 }
 .painel-title img.action{
     margin: 13px 0 0 10px;
     float: left;
+}
+.painel-title img.action{
+    width: 20px;
 }
 .text-center{
     text-align: center;
@@ -95,16 +102,16 @@ button:hover{
     position: fixed;
     top: 0;
     width: 100%;
-    height: 80px;
+    height: 60px;
     background-color: #FFF;
     border-bottom: 1px solid #EFEFEF;
 }
 #topo{
-    max-width: 1500px;
+    max-width: 1300px;
     margin: 0 auto;
 }
 #logo{
-    padding: 20px;
+    padding: 10px;
     float: left;
 }
 #logo img{
@@ -114,13 +121,14 @@ button:hover{
     margin-right: 10px;
 }
 #logo .logoname{
-    margin-top: 5px;
+    margin-top: 10px;
     float: left;
+    font-size: large;
 }
 #info-logo{
     width: 100%;
     float: left;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     text-align: center;
 }
 #info-logo img{
@@ -131,25 +139,26 @@ button:hover{
     margin-bottom: 5px;
 }
 .logoname{
-    font-size: x-large;
+    font-size: large;
     color: #00ADEE;
 }
 .my-account{
-    line-height: 80px;
-    margin-right: 20px;
+    line-height: 60px;
+    margin-right: 10px;
     float: right;
+    font-size: 14px;
 }
 .my-account span.user{
     cursor: pointer;
 }
 #content {
-    max-width: 1500px;
+    max-width: 1300px;
     min-height: 600px;
-    margin: 80px auto 0;
+    margin: 60px auto 20px;
     padding: 0 10px;
 }
 .content-margin-top {
-    margin: 120px auto 0 !important;
+    margin: 80px auto 0 !important;
 }
 #content-left {
     width: 30%;
@@ -158,14 +167,14 @@ button:hover{
 #content-right{
     width: 70%;
     float: left;
-    padding-left: 40px; 
+    padding-left: 20px; 
 }
 .event{
     background-color: #FFF;
     border: 1px solid #EFEFEF;
     border-radius: 2px;
     overflow: auto;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 .event-header{
     width: 100%;
@@ -174,12 +183,12 @@ button:hover{
 }
 .event-header > .event-info{
     width: 100%;
-    padding: 20px;
+    padding: 15px;
     float: left;
     font-size: small;
 }
 .event-header > .event-info p:first-child{
-    font-size: xx-large;
+    font-size: large;
     margin-bottom: 10px;
 }
 .event-header .perfil{
@@ -200,7 +209,7 @@ button:hover{
 }
 .event-banner{
     width: 100%;
-    height: 480px; 
+    height: 400px; 
     float: left;
     overflow: hidden;
 }
@@ -212,22 +221,21 @@ button:hover{
 .event-info{
     width: 100%;
     float: left;   
-    padding: 20px;
+    padding: 15px;
     font-size: medium;
 }
 .event-mais-info{
     width: 100%;
-    padding: 0 20px 20px;
+    padding: 0 15px 15px;
     overflow: auto;
 }
 #events-mini{
     width: 100%;
     float: left;
-    margin-bottom: 20px;
 }
 .event-mini-block {
     width: 100%;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     float: left;
     background-color: #FFF;
     border: 1px solid #EFEFEF;
@@ -246,7 +254,7 @@ button:hover{
     width: 100%;
     float: left;
     font-size: small;
-    padding: 20px;
+    padding: 15px;
 }
 .event-mini-info > p:first-child{
     font-size: large;
@@ -334,6 +342,7 @@ button:hover{
     list-style: none;
     background: #FFF;
     float: left;
+    font-size: 14px;
     border-bottom: 1px solid #EFEFEF;
 }
 #painel-menu li{
@@ -356,8 +365,8 @@ button:hover{
 }
 #painel-menu li span{
     display: block;
-    margin: 15px 0 11px;
-    padding: 5px 20px;
+    margin: 0 0 0;
+    padding: 10px 20px;
     border-right: 1px solid #EFEFEF;
 }
 #painel-menu li:last-child span{
@@ -380,7 +389,7 @@ button:hover{
 }
 .grid thead th, .grid tbody td{
     text-align: left;
-    padding: 10px;
+    padding: 5px 10px;
 }
 .grid tbody tr {
     border-bottom: 1px solid #EFEFEF;
@@ -392,20 +401,18 @@ button:hover{
     text-align: center;
 }
 img.action{
-    width: 20px;
+    width: 15px;
     cursor: pointer;
 }
 .form{
-    width: calc(100% - 20px);
+    width: 100%;
     margin: 0 auto;
     background: #FFF;
     display: table;
-    font-size: medium;
     border-collapse: collapse;
 }
 .form .title{
-    font-size: medium;
-    padding: 10px;
+    padding: 5px 10px;
     background: #DDD;
     border-bottom: 1px solid #F8F8F8;
     font-weight: bold;
@@ -419,38 +426,16 @@ img.action{
 .form tr td:first-child:not(.title){
     text-align: right;
     width: 30%;
-    padding-right: 20px;
+    padding-right: 15px;
 }
 .form input, .form select{
     max-width: 300px;
-    font-size: medium;
 }
 .form button{
     margin: 10px 0;
     float: none;
 }
 @media screen and (max-width: 991px){
-    #header{
-        height: 60px;
-    }
-    #logo{
-        padding: 10px;
-    }
-    .logoname{
-        padding-top: 4px;
-        font-size: large;
-    }
-    .title{
-        font-size: large;
-    }
-    .my-account{
-        line-height: 60px;
-        margin-right: 10px;
-    }
-    #content{
-        margin-top: 60px;
-        min-height: 0;
-    }
     .content-margin-top {
         margin: 70px auto 0 !important;
     }
@@ -501,11 +486,10 @@ img.action{
     }
     #painel-menu{
         width: calc(100% + 20px);
-        margin-left: -10px;
+        margin-left: -10px;      
     }
     #painel-menu li span{
-        font-size: small;
-        padding: 0 10px;
+        padding: 10px;
     }
     .grid{   
         margin: 0 auto;
@@ -521,20 +505,7 @@ img.action{
         font-size: small;
     }
     button{
+        padding: 10px 15px;;
         font-size: small;
-    }
-}
-@media screen and (min-width: 992px) and (max-width: 1199px){
-    .content-margin-top {
-        margin: 100px auto 0 !important;
-    }
-    .content-login form{
-        margin-top: 20px;
-    }
-    #content-right{
-        padding-left: 20px;
-    }
-    .event, .event-mini-block{
-        margin-bottom: 20px;
     }
 }

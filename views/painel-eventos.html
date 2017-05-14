@@ -1,8 +1,12 @@
 <div ng-controller="PainelController as painel">
     <my-panel-menu></my-panel-menu>
-    <p class="title painel-title">
+    <div class="title painel-title">
         <span>Lista de eventos</span>
-    </p>
+        <div class="right">
+            <button type="button" ng-click="app.loadPage('/painel/eventos/0')">Novo evento</button>
+        </div>
+    </div>
+    </div>
     <table class="grid">
         <thead>
             <tr>
