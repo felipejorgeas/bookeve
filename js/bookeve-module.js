@@ -1,4 +1,4 @@
-angular.module('bookeve', ['ngRoute']);
+angular.module('bookeve', ['ngRoute', 'youtube-embed']);
 angular.module('bookeve').config(function ($routeProvider) {
     var accessRestrict = {
         verify1: function ($q, AuthenticationService) {

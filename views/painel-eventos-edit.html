@@ -7,60 +7,70 @@
         </div>
     </div>
     <form ng-submit="eventoCtrl.atualizar(eventoCtrl.event)">
-        <input type="hidden" ng-model="eventoCtrl.event.id" /> 
+        <input type="hidden" ng-model="eventoCtrl.event.id" />
         <table class="form">
             <tr>
-                <td colspan="2" class="title"> 
-                    Dados pessoais
+                <td colspan="2" class="title">
+                    Dados
                 </td>
             </tr>
             <tr>
                 <td>#ID</td>
-                <td>{{eventoCtrl.user.id}}</td>
-            </tr>
-            <tr>
-                <td>Email</td>
-                <td>{{eventoCtrl.event.email}}</td>
+                <td>{{eventoCtrl.event.id}}</td>
             </tr>
             <tr>
                 <td>Nome</td>
                 <td>
-                    <input type="text" ng-model="eventoCtrl.event.name" /> 
+                    <input type="text" ng-model="eventoCtrl.event.name" />
                 </td>
             </tr>
             <tr>
-                <td>Telefone</td>
+                <td>Início do evento</td>
                 <td>
-                    <input type="text" ng-model="eventoCtrl.event.phone" /> 
+                    <input type="text" ng-model="eventoCtrl.event.dateIni" />
+                    <input type="text" ng-model="eventoCtrl.event.dateIni" />
                 </td>
             </tr>
             <tr>
-                <td colspan="2" class="title">  
+                <td>Fim do evento</td>
+                <td>
+                    <input type="text" ng-model="eventoCtrl.event.dateFin" />
+                    <input type="text" ng-model="eventoCtrl.event.dateFin" />
+                </td>
+            </tr>
+            <tr>
+                <td>Vagas</td>
+                <td>
+                    <input type="number" ng-model="eventoCtrl.event.vacancies" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="title">
                     Endereço
                 </td>
             </tr>
             <tr>
                 <td>Rua</td>
                 <td>
-                    <input type="text" ng-model="eventoCtrl.event.address" /> 
+                    <input type="text" ng-model="eventoCtrl.event.address" />
                 </td>
             </tr>
             <tr>
                 <td>Número</td>
                 <td>
-                    <input type="text" ng-model="eventoCtrl.event.number" /> 
+                    <input type="text" ng-model="eventoCtrl.event.number" />
                 </td>
             </tr>
             <tr>
                 <td>Complemento</td>
                 <td>
-                    <input type="text" ng-model="eventoCtrl.event.complement" /> 
+                    <input type="text" ng-model="eventoCtrl.event.complement" />
                 </td>
             </tr>
             <tr>
                 <td>Bairro</td>
                 <td>
-                    <input type="text" ng-model="eventoCtrl.event.neighborhood" /> 
+                    <input type="text" ng-model="eventoCtrl.event.neighborhood" />
                 </td>
             </tr>
             <tr>
@@ -82,27 +92,56 @@
             <tr>
                 <td>Cep</td>
                 <td>
-                    <input type="text" ng-model="eventoCtrl.event.zip" />  
+                    <input type="text" ng-model="eventoCtrl.event.zip" />
                 </td>
             </tr>
-            <tr ng-if="eventoCtrl.accessAdm">
-                <td colspan="2" class="title">  
-                    Extras
+            <tr>
+                <td colspan="2" class="title">
+                    Palestrantes
                 </td>
             </tr>
-            <tr ng-if="eventoCtrl.accessAdm">
-                <td>Permissão de acesso</td>
+            <tr>
+                <td>Nome do palestrante</td>
                 <td>
-                    <select ng-model="eventoCtrl.user.accessLevel">
-                        <option ng-repeat="access in eventoCtrl.accessLevels track by $index" value="{{access.title}}" ng-selected="access.title === eventoCtrl.user.accessLevel" >{{access.title}}</option>
-                    </select>
+                    <input type="text" ng-model="eventoCtrl.video" />
+                    <button type="button" ng-click="eventoCtrl.insertLecturer()">Adicionar palestrante</button>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="title">
+                    Vídeos
+                </td>
+            </tr>
+            <tr>
+                <td>Url do vídeo</td>
+                <td>
+                    <input type="text" ng-model="eventoCtrl.video" />
+                    <button type="button" ng-click="eventoCtrl.insertVideo()">Adicionar vídeo</button>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div class="embed-responsive embed-responsive-16by9" ng-repeat="video in eventoCtrl.event.videos  track by $index">
+                        <div class="excluir-video" ng-click="eventoCtrl.removeVideo(video)">excluir</div>
+                        <youtube-video class="embed-responsive-item" video-url="video.url"></youtube-video>
+                    </div>
+                </td>
+            </tr>
+            <tr ng-if="eventoCtrl.accessAdm">
+                <td colspan="2" class="title">
+                    Extras
                 </td>
             </tr>
             <tr ng-if="eventoCtrl.accessAdm">
                 <td>Situação</td>
                 <td>
-                    <select ng-model="eventoCtrl.user.active">
-                        <option ng-repeat="status in eventoCtrl.status track by $index" value="{{$index}}" ng-selected="$index === eventoCtrl.user.active" >{{status.title}}</option>
+                    <select ng-model="eventoCtrl.event.active">
+                        <option ng-repeat="status in eventoCtrl.status track by $index" value="{{$index}}" ng-selected="$index === eventoCtrl.event.active" >{{status.title}}</option>
                     </select>
                 </td>
             </tr>

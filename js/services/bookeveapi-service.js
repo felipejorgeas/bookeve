@@ -80,6 +80,20 @@ var BookEveAPIService = function ($http) {
             }
         },
         Content: {
+        },
+        Video: {
+            insert: function (videos, callback) {
+                var url = apiUrl + '/eventsVideos/';
+                $http.post(url, videos).then(function (resp) {
+                    callback(resp);
+                });
+            },
+            delete: function (videoId, callback) {
+                var url = apiUrl + '/eventsVideos/' + videoId;
+                $http.delete(url).then(function (resp) {
+                    callback(resp, videoId);
+                });
+            }
         }
     }
 }
