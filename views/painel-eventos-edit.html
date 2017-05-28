@@ -6,7 +6,7 @@
             <button type="button" ng-click="app.loadPage('/painel/eventos')">Voltar</button>
         </div>
     </div>
-    <form ng-submit="eventoCtrl.atualizar(eventoCtrl.event)">
+    <form ng-submit="eventoCtrl.salvar(eventoCtrl.event)">
         <input type="hidden" ng-model="eventoCtrl.event.id" />
         <table class="form">
             <tr>
@@ -14,12 +14,12 @@
                     Dados
                 </td>
             </tr>
-            <tr>
+            <tr ng-if="eventoCtrl.event.id">
                 <td>#ID</td>
                 <td>{{eventoCtrl.event.id}}</td>
             </tr>
             <tr>
-                <td>Nome</td>
+                <td>Nome do evento</td>
                 <td>
                     <input type="text" ng-model="eventoCtrl.event.name" />
                 </td>
@@ -45,8 +45,20 @@
                 </td>
             </tr>
             <tr>
+                <td>Descrição do evento</td>
+                <td>
+                    <textarea ng-model="eventoCtrl.event.description"></textarea>
+                </td>
+            </tr>
+            <tr>
                 <td colspan="2" class="title">
                     Endereço
+                </td>
+            </tr>
+            <tr>
+                <td>Cep</td>
+                <td>
+                    <input type="text" ng-model="eventoCtrl.event.zip" ng-blur="eventoCtrl.buscarEndereco(eventoCtrl.event.zip)" />
                 </td>
             </tr>
             <tr>
@@ -74,25 +86,16 @@
                 </td>
             </tr>
             <tr>
-                <td>Estado</td>
-                <td>
-                    <select>
-                        <option value="Minas Gerais">Minas Gerais</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
                 <td>Cidade</td>
                 <td>
-                    <select> 
-                        <option value="Minas Gerais">Belo Horizonte</option>
+                    <input type="text" ng-model="eventoCtrl.event.city" />
                     </select>
                 </td>
             </tr>
             <tr>
-                <td>Cep</td>
+                <td>Estado</td>
                 <td>
-                    <input type="text" ng-model="eventoCtrl.event.zip" />
+                    <input type="text" ng-model="eventoCtrl.event.state" /> </select>
                 </td>
             </tr>
             <tr>
@@ -103,13 +106,19 @@
             <tr>
                 <td>Nome do palestrante</td>
                 <td>
-                    <input type="text" ng-model="eventoCtrl.video" />
+                    <input type="text" ng-model="eventoCtrl.lecturer" />
                     <button type="button" ng-click="eventoCtrl.insertLecturer()">Adicionar palestrante</button>
                 </td>
             </tr>
             <tr>
-                <td colspan="2">
-                    
+                <td></td>
+                <td>
+                    <div class="event-tags">
+                        <div ng-repeat="lecturer in eventoCtrl.event.lecturers track by $index">
+                            {{lecturer.name}}
+                            <span class="excluir-lecturer" ng-click="eventoCtrl.removeLecturer(lecturer)">x</span>
+                        </div>
+                    </div>
                 </td>
             </tr>
             <tr>
@@ -118,7 +127,7 @@
                 </td>
             </tr>
             <tr>
-                <td>Url do vídeo</td>
+                <td>Url do vídeo no YouTube</td>
                 <td>
                     <input type="text" ng-model="eventoCtrl.video" />
                     <button type="button" ng-click="eventoCtrl.insertVideo()">Adicionar vídeo</button>
@@ -126,7 +135,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <div class="embed-responsive embed-responsive-16by9" ng-repeat="video in eventoCtrl.event.videos  track by $index">
+                    <div class="embed-responsive embed-responsive-16by9" ng-repeat="video in eventoCtrl.event.videos track by $index">
                         <div class="excluir-video" ng-click="eventoCtrl.removeVideo(video)">excluir</div>
                         <youtube-video class="embed-responsive-item" video-url="video.url"></youtube-video>
                     </div>
@@ -147,7 +156,8 @@
             </tr>
             <tr>
                 <td colspan="2" class="bd-top">
-                    <button type="submit">Atualizar dados</button>
+                    <button ng-if="!eventoCtrl.event.id" type="submit">Salvar evento</button>
+                    <button ng-if="eventoCtrl.event.id" type="submit">Atualizar dados</button>
                 </td>
             </tr>
         </table>

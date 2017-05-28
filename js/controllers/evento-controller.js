@@ -1,4 +1,4 @@
-var EventoController = function ($rootScope, $routeParams, BookEveAPIService, AuthenticationService) {
+var EventoController = function ($rootScope, $routeParams, BookEveAPIService, AuthenticationService, CepService) {
     var self = this;
     self.status = [
         {
@@ -10,6 +10,8 @@ var EventoController = function ($rootScope, $routeParams, BookEveAPIService, Au
     ];
     self.eventos = [];
     self.event = {};
+    self.lecturer = '';
+    self.video = '';
     self.getEventos = function () {
         var where = {
             deleted: 0
@@ -34,43 +36,99 @@ var EventoController = function ($rootScope, $routeParams, BookEveAPIService, Au
             var response = resp.data;
             if (response.status) {
                 var evento = response.data;
-                evento.videos = self.formatVideos(evento.videos);
                 self.event = evento;
             } else {
                 alert(response.message);
             }
         }
     };
-    self.formatVideos = function (videos) {
-        var find = 'watch?v=';
-        var replace = 'embed/';
-        videos = videos.map(function (item) {
-            item.embed = item.url.replace(find, replace);
-            return item;
-        });
-        return videos;
+    self.insertLecturer = function () {
+        var lecturer = self.lecturer;
+        if (!lecturer.length) {
+            alert('Informe o nome do palestrante!');
+        } else {
+            if (self.event.id) {
+                var lecturers = {
+                    eventId: self.event.id,
+                    lecturers: [
+                        {
+                            name: lecturer
+                        }
+                    ]
+                };
+                BookEveAPIService.Lecturer.insert(lecturers, self.insertLecturerResponse);
+            } else {
+                if (!self.event.lecturers) {
+                    self.event.lecturers = [];
+                }
+                var lecturer = {
+                    name: lecturer
+                };
+                self.event.lecturers.push(lecturer);
+                self.lecturer = '';
+            }
+        }
+    };
+    self.insertLecturerResponse = function (resp) {
+        if (resp && resp.status === 200 && resp.data) {
+            var response = resp.data;
+            if (response.status === 200) {
+                var lecturers = response.data;
+                lecturers.forEach(function (item) {
+                    self.event.lecturers.push(item);
+                });
+                self.lecturer = '';
+            } else {
+                alert(response.message);
+            }
+        }
+    };
+    self.removeLecturer = function (lecturer) {
+        if (self.event.id) {
+            BookEveAPIService.Lecturer.delete(lecturer.id, self.removeLecturerResponse);
+        } else {
+            var index = self.event.lecturers.indexOf(lecturer);
+            self.event.lecturers.splice(index, 1);
+        }
+    };
+    self.removeLecturerResponse = function (resp, lecturerId) {
+        if (resp && resp.status === 200 && resp.data) {
+            var response = resp.data;
+            if (response.status === 200) {
+                var lecturers = self.event.lecturers.filter(function (item) {
+                    return (item.id != lecturerId);
+                });
+                self.event.lecturers = lecturers;
+            } else {
+                alert(response.message);
+            }
+        }
     };
     self.insertVideo = function () {
         var url = self.video;
-        if (self.event.id) {
-            var videos = {
-                eventId: self.event.id,
-                videos: [
-                    {
-                        url: url
-                    }
-                ]
-            };
-            BookEveAPIService.Video.insert(videos, self.insertVideoResponse);
+        if (!url.length) {
+            alert('Informe a url do vídeo!');
         } else {
-            if (!self.event.videos) {
-                self.event.videos = [];
+            if (self.event.id) {
+                var videos = {
+                    eventId: self.event.id,
+                    videos: [
+                        {
+                            url: url
+                        }
+                    ]
+                };
+                BookEveAPIService.Video.insert(videos, self.insertVideoResponse);
+            } else {
+                if (!self.event.videos) {
+                    self.event.videos = [];
+                }
+                var video = {
+                    url: url
+                };
+                self.event.videos.push(video);
+                self.video = '';
             }
-            var video = {
-                url: url
-            };
-            self.event.videos.push(video);
-            self.video = '';
         }
     };
     self.insertVideoResponse = function (resp) {
@@ -93,7 +151,6 @@ var EventoController = function ($rootScope, $routeParams, BookEveAPIService, Au
         } else {
             var index = self.event.videos.indexOf(video);
             self.event.videos.splice(index, 1);
-            console.log(index);
         }
     };
     self.removeVideoResponse = function (resp, videoId) {
@@ -112,14 +169,19 @@ var EventoController = function ($rootScope, $routeParams, BookEveAPIService, Au
     self.editar = function (eventId) {
         $rootScope.loadPage('/painel/eventos/' + eventId);
     };
-    self.atualizar = function (event) {
-        BookEveAPIService.Event.update(user, self.atualizarEventoResponse);
+    self.salvar = function (event) {
+        if (!event.id) {
+            event.userId = AuthenticationService.getUserAuthenticated().id;
+            BookEveAPIService.Event.insert(event, self.salvarEventoResponse);
+        } else {
+            BookEveAPIService.Event.update(event, self.salvarEventoResponse);
+        }
     };
-    self.atualizarEventoResponse = function (resp) {
+    self.salvarEventoResponse = function (resp) {
         if (resp && resp.status === 200 && resp.data) {
             var response = resp.data;
             if (response.status === 200) {
-                alert('Dados do evento atualizados com sucesso!');
+                alert('Dados do evento salvos com sucesso!');
             } else {
                 alert(response.message);
             }
@@ -140,6 +202,18 @@ var EventoController = function ($rootScope, $routeParams, BookEveAPIService, Au
             }
         }
     };
+    self.buscarEndereco = function (cep) {
+        CepService.searchAddressByCep(cep, self.buscarEnderecoResponse);
+    };
+    self.buscarEnderecoResponse = function (resp) {
+        if (resp && resp.status === 200 && resp.data) {
+            var response = resp.data;
+            self.event.address = response.logradouro;
+            self.event.neighborhood = response.bairro;
+            self.event.city = response.localidade;
+            self.event.state = response.uf;
+        }
+    };
     self.init = function () {
         self.accessAdm = AuthenticationService.getUserAuthenticated().accessLevel === 'administrador' ? true : false;
         self.accessOrg = AuthenticationService.getUserAuthenticated().accessLevel === 'organizador' ? true : false;
@@ -152,4 +226,4 @@ var EventoController = function ($rootScope, $routeParams, BookEveAPIService, Au
     };
     self.init();
 };
-EventoController.$inject = ['$rootScope', '$routeParams', 'BookEveAPIService', 'AuthenticationService'];
+EventoController.$inject = ['$rootScope', '$routeParams', 'BookEveAPIService', 'AuthenticationService', 'CepService'];

@@ -15,7 +15,7 @@
                     Dados pessoais
                 </td>
             </tr>
-            <tr>
+            <tr ng-if="usuarioCtrl.user.id">
                 <td>#ID</td>
                 <td>{{usuarioCtrl.user.id}}</td>
             </tr>
@@ -41,49 +41,46 @@
                 </td>
             </tr>
             <tr>
+                <td>Cep</td>
+                <td>
+                    <input type="text" ng-model="usuarioCtrl.user.zip" ng-blur="usuarioCtrl.buscarEndereco(usuarioCtrl.user.zip)" />
+                </td>
+            </tr>
+            <tr>
                 <td>Rua</td>
                 <td>
-                    <input type="text" ng-model="usuarioCtrl.user.address" /> 
+                    <input type="text" ng-model="usuarioCtrl.user.address" />
                 </td>
             </tr>
             <tr>
                 <td>Número</td>
                 <td>
-                    <input type="text" ng-model="usuarioCtrl.user.number" /> 
+                    <input type="text" ng-model="usuarioCtrl.user.number" />
                 </td>
             </tr>
             <tr>
                 <td>Complemento</td>
                 <td>
-                    <input type="text" ng-model="usuarioCtrl.user.complement" /> 
+                    <input type="text" ng-model="usuarioCtrl.user.complement" />
                 </td>
             </tr>
             <tr>
                 <td>Bairro</td>
                 <td>
-                    <input type="text" ng-model="usuarioCtrl.user.neighborhood" /> 
-                </td>
-            </tr>
-            <tr>
-                <td>Estado</td>
-                <td>
-                    <select>
-                        <option value="Minas Gerais">Minas Gerais</option>
-                    </select>
+                    <input type="text" ng-model="usuarioCtrl.user.neighborhood" />
                 </td>
             </tr>
             <tr>
                 <td>Cidade</td>
                 <td>
-                    <select> 
-                        <option value="Minas Gerais">Belo Horizonte</option>
+                    <input type="text" ng-model="usuarioCtrl.user.city" />
                     </select>
                 </td>
             </tr>
             <tr>
-                <td>Cep</td>
+                <td>Estado</td>
                 <td>
-                    <input type="text" ng-model="usuarioCtrl.user.zip" />  
+                    <input type="text" ng-model="usuarioCtrl.user.state" />                    </select>
                 </td>
             </tr>
             <tr ng-if="usuarioCtrl.accessAdm">

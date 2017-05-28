@@ -60,6 +60,7 @@ angular.module('bookeve').config(function ($routeProvider) {
             })
             .otherwise('/');
 });
+angular.module('bookeve').factory('CepService', CepService);
 angular.module('bookeve').factory('AuthenticationService', AuthenticationService);
 angular.module('bookeve').factory('BookEveAPIService', BookEveAPIService);
 angular.module('bookeve').controller('AppController', AppController);

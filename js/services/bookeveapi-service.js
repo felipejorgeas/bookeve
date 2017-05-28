@@ -66,6 +66,12 @@ var BookEveAPIService = function ($http) {
                     callback(resp);
                 });
             },
+            insert: function (event, callback) {
+                var url = apiUrl + '/events/';
+                $http.post(url, event).then(function (resp) {
+                    callback(resp);
+                });
+            },
             update: function (event, callback) {
                 var url = apiUrl + '/events/' + event.id;
                 $http.put(url, event).then(function (resp) {
@@ -79,7 +85,19 @@ var BookEveAPIService = function ($http) {
                 });
             }
         },
-        Content: {
+        Lecturer: {
+            insert: function (lecturers, callback) {
+                var url = apiUrl + '/eventsLecturers/';
+                $http.post(url, lecturers).then(function (resp) {
+                    callback(resp);
+                });
+            },
+            delete: function (lecturerId, callback) {
+                var url = apiUrl + '/eventsLecturers/' + lecturerId;
+                $http.delete(url).then(function (resp) {
+                    callback(resp, lecturerId);
+                });
+            }
         },
         Video: {
             insert: function (videos, callback) {
@@ -94,6 +112,8 @@ var BookEveAPIService = function ($http) {
                     callback(resp, videoId);
                 });
             }
+        },
+        Content: {
         }
     }
 }

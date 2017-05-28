@@ -1,4 +1,4 @@
-var UsuarioController = function ($rootScope, $routeParams, BookEveAPIService, AuthenticationService) {
+var UsuarioController = function ($rootScope, $routeParams, BookEveAPIService, AuthenticationService, CepService) {
     var self = this;
     self.accessAdm = false;
     self.usuarios = [];
@@ -83,6 +83,18 @@ var UsuarioController = function ($rootScope, $routeParams, BookEveAPIService, A
             }
         }
     };
+    self.buscarEndereco = function (cep) {
+        CepService.searchAddressByCep(cep, self.buscarEnderecoResponse);
+    };
+    self.buscarEnderecoResponse = function (resp) {
+        if (resp && resp.status === 200 && resp.data) {
+            var response = resp.data;
+            self.user.address = response.logradouro;
+            self.user.neighborhood = response.bairro;
+            self.user.city = response.localidade;
+            self.user.state = response.uf;
+        }
+    };
     self.init = function () {
         self.accessAdm = AuthenticationService.getUserAuthenticated().accessLevel === 'administrador' ? true : false;
         var userId = $routeParams.id;
@@ -99,4 +111,4 @@ var UsuarioController = function ($rootScope, $routeParams, BookEveAPIService, A
     };
     self.init();
 };
-UsuarioController.$inject = ['$rootScope', '$routeParams', 'BookEveAPIService', 'AuthenticationService'];
+UsuarioController.$inject = ['$rootScope', '$routeParams', 'BookEveAPIService', 'AuthenticationService', 'CepService'];
