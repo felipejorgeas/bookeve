@@ -12,6 +12,7 @@ var EventoController = function ($rootScope, $routeParams, BookEveAPIService, Au
     self.event = {};
     self.lecturer = '';
     self.video = '';
+    self.bannerLoaded = false;
     self.getEventos = function () {
         var where = {
             deleted: 0
@@ -37,10 +38,26 @@ var EventoController = function ($rootScope, $routeParams, BookEveAPIService, Au
             if (response.status) {
                 var evento = response.data;
                 self.event = evento;
+                if (self.event.banner.length) {
+                    var image = BookEveAPIService.getApiUrl() + '/banners/' + self.event.id + '/' + self.event.banner;
+                    self.bannerLoaded = true;
+                    document.getElementById('banner').style.backgroundImage = 'url("' + image + '")';
+                }
             } else {
                 alert(response.message);
             }
         }
+    };
+    self.setBanner = function (files) {
+        self.bannerLoaded = true;
+        var file = files[0];
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            var dataURI = e.target.result;
+            self.event.image = dataURI;
+            document.getElementById('banner').style.backgroundImage = 'url("' + dataURI + '")';
+        }
+        reader.readAsDataURL(file);
     };
     self.insertLecturer = function () {
         var lecturer = self.lecturer;

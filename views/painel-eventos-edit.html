@@ -6,6 +6,10 @@
             <button type="button" ng-click="app.loadPage('/painel/eventos')">Voltar</button>
         </div>
     </div>
+    <div id="banner">
+        <input id="upload-banner" type="file" ng-hide="true" file-change handler="eventoCtrl.setBanner(files)" />
+        <button type="button" uploadFile>{{ eventoCtrl.bannerLoaded ? 'alterar' : 'adicionar' }} imagem</button>
+    </div>
     <form ng-submit="eventoCtrl.salvar(eventoCtrl.event)">
         <input type="hidden" ng-model="eventoCtrl.event.id" />
         <table class="form">
@@ -13,10 +17,6 @@
                 <td colspan="2" class="title">
                     Dados
                 </td>
-            </tr>
-            <tr ng-if="eventoCtrl.event.id">
-                <td>#ID</td>
-                <td>{{eventoCtrl.event.id}}</td>
             </tr>
             <tr>
                 <td>Nome do evento</td>

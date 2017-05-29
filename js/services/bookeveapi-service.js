@@ -1,6 +1,9 @@
 var BookEveAPIService = function ($http) {
     var apiUrl = 'http://192.168.0.16:5555/bookeve-api';
     return {
+        getApiUrl: function () {
+            return apiUrl;
+        },
         User: {
             register: function (user, callback) {
                 var url = apiUrl + '/users/';

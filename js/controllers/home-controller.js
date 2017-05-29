@@ -7,6 +7,10 @@ var HomeController = function (BookEveAPIService) {
         };
         BookEveAPIService.Event.getAll(where, self.getEventosResponse);
     };
+    self.getBanner = function(evento){
+        var image = BookEveAPIService.getApiUrl() + '/banners/' + evento.id + '/' + evento.banner;
+        return image;
+    };
     self.getEventosResponse = function (resp) {
         if (resp && resp.status === 200 && resp.data) {
             var response = resp.data;
