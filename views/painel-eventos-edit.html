@@ -1,4 +1,4 @@
-<div ng-controller="PainelController as painel">
+<div id="painel" ng-controller="PainelController as painel">
     <my-panel-menu></my-panel-menu>
     <div class="title painel-title">
         <span>Edição de evento</span>
@@ -27,15 +27,17 @@
             <tr>
                 <td>Início do evento</td>
                 <td>
-                    <input type="text" ng-model="eventoCtrl.event.dateIni" />
-                    <input type="text" ng-model="eventoCtrl.event.dateIni" />
+                    <input class="size-medium" type="text" ng-model="eventoCtrl.event.dateIniFormat.date" /> às
+                    <select class="size-min" name="dateIniHour" ng-model="eventoCtrl.event.dateIniFormat.hour" ng-options="hour for hour in eventoCtrl.hours track by hour"></select>:
+                    <select class="size-min" name="dateIniMinute" ng-model="eventoCtrl.event.dateIniFormat.minute" ng-options="minute for minute in eventoCtrl.minutes track by minute"></select>
                 </td>
             </tr>
             <tr>
-                <td>Fim do evento</td>
+                <td>Término do evento</td>
                 <td>
-                    <input type="text" ng-model="eventoCtrl.event.dateFin" />
-                    <input type="text" ng-model="eventoCtrl.event.dateFin" />
+                    <input class="size-medium" type="text" ng-model="eventoCtrl.event.dateFinFormat.date" /> às
+                    <select class="size-min" name="dateFinHour" ng-model="eventoCtrl.event.dateFinFormat.hour" ng-options="hour for hour in eventoCtrl.hours track by hour"></select>:
+                    <select class="size-min" name="dateFinMinute" ng-model="eventoCtrl.event.dateFinFormat.minute" ng-options="minute for minute in eventoCtrl.minutes track by minute"></select>
                 </td>
             </tr>
             <tr>

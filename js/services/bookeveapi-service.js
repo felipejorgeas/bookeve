@@ -1,5 +1,5 @@
-var BookEveAPIService = function ($http) {
-    var apiUrl = 'http://192.168.0.16:5555/bookeve-api';
+var BookEveAPIService = function ($http, API_URL) {
+    var apiUrl = API_URL;
     return {
         getApiUrl: function () {
             return apiUrl;
@@ -86,6 +86,28 @@ var BookEveAPIService = function ($http) {
                 $http.delete(url).then(function (resp) {
                     callback(resp);
                 });
+            },
+            participe: function (event, user, callback) {
+                var url = apiUrl + '/eventsUsers/';
+                var data = {
+                    event: event,
+                    user: user
+                };
+                $http.post(url, data).then(function (resp) {
+                    callback(resp);
+                });
+            },
+            participeDelete: function (id, callback) {
+                var url = apiUrl + '/eventsUsers/' + id;
+                $http.delete(url).then(function (resp) {
+                    callback(resp);
+                });
+            },
+            participeFind: function (eventId, userId, callback) {
+                var url = apiUrl + '/eventsUsers/event/' + eventId + '/user/' + userId;
+                $http.get(url).then(function (resp) {
+                    callback(resp);
+                });
             }
         },
         Lecturer: {
@@ -120,4 +142,5 @@ var BookEveAPIService = function ($http) {
         }
     }
 }
-BookEveAPIService.$inject = ['$http'];
+BookEveAPIService.$inject = ['$http', 'API_URL'];
+angular.module('bookeve').factory('BookEveAPIService', BookEveAPIService);

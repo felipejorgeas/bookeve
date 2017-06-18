@@ -61,3 +61,4 @@ var AppController = function ($rootScope, $scope, $location, AuthenticationServi
     return $scope;
 }
 AppController.$inject = ['$rootScope', '$scope', '$location', 'AuthenticationService'];
+angular.module('bookeve').controller('AppController', AppController);

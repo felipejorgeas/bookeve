@@ -94,3 +94,4 @@ var PainelController = function ($rootScope, $location, AuthenticationService) {
     self.init();
 }
 PainelController.$inject = ['$rootScope', '$location', 'AuthenticationService'];
+angular.module('bookeve').controller('PainelController', PainelController);

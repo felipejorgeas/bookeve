@@ -3,6 +3,10 @@ var UsuarioController = function ($rootScope, $routeParams, BookEveAPIService, A
     self.accessAdm = false;
     self.usuarios = [];
     self.user = {};
+    self.genders = [
+        'masculino',
+        'feminino'
+    ];
     self.accessLevels = [
         {
             title: 'participante'
@@ -112,3 +116,4 @@ var UsuarioController = function ($rootScope, $routeParams, BookEveAPIService, A
     self.init();
 };
 UsuarioController.$inject = ['$rootScope', '$routeParams', 'BookEveAPIService', 'AuthenticationService', 'CepService'];
+angular.module('bookeve').controller('UsuarioController', UsuarioController);

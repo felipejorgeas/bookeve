@@ -1,4 +1,4 @@
-var HomeController = function (BookEveAPIService) {
+var HomeController = function ($rootScope, BookEveAPIService) {
     var self = this;
     self.eventos = [];
     self.getEventos = function () {
@@ -7,8 +7,11 @@ var HomeController = function (BookEveAPIService) {
         };
         BookEveAPIService.Event.getAll(where, self.getEventosResponse);
     };
-    self.getBanner = function(evento){
-        var image = BookEveAPIService.getApiUrl() + '/banners/' + evento.id + '/' + evento.banner;
+    self.getBanner = function (evento) {
+        var image = '';
+        if (evento.id) {
+            image = BookEveAPIService.getApiUrl() + '/banners/' + evento.id + '/' + evento.banner;
+        }
         return image;
     };
     self.getEventosResponse = function (resp) {
@@ -21,9 +24,13 @@ var HomeController = function (BookEveAPIService) {
             }
         }
     };
-    self.init = function(){
+    self.loadEvent = function (eventId) {
+        $rootScope.loadPage('/evento/' + eventId);
+    };
+    self.init = function () {
         self.getEventos();
     }
     self.init();
 }
-HomeController.$inject = ['BookEveAPIService'];
+HomeController.$inject = ['$rootScope', 'BookEveAPIService'];
+angular.module('bookeve').controller('HomeController', HomeController);

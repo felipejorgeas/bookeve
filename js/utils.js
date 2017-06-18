@@ -173,5 +173,61 @@ Utils = {
             }
         }
         return format.replace(regex, doFormat)
+    },
+    getDateFormat: function (date) {
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
+        if (month < 10) {
+            month = '0' + month;
+        }
+        if (day < 10) {
+            day = '0' + day;
+        }
+        var dateFormat = day + '/' + month + '/' + year;
+        return dateFormat;
+    },
+    getDateDbFormat: function (date) {
+        var date = date.split('/');
+        var year = date[2];
+        var month = date[1];
+        var day = date[0];
+        if (month < 10) {
+            month = '0' + month;
+        }
+        if (day < 10) {
+            day = '0' + day;
+        }
+        var dateFormat = year + '-' + month + '-' + day;
+        return dateFormat;
+    },
+    getDateZeroFormat: function(value){
+        return (value < 10 ? '0' + value : value);
+    },
+    getHours: function () {
+        var hours = [];
+        var hour = '';
+        for (var i = 0; i < 24; i++) {
+            hour = '';
+            if (i < 10) {
+                hour += '0';
+            }
+            hour += i;
+            hours.push(hour);
+        }
+        return hours;
+    },
+    getMinutes: function () {
+        var minutes = [];
+        var minute = '';
+        for (var i = 0; i < 60; i += 5) {
+            minute = '';
+            if (i < 10) {
+                minute += '0';
+            }
+            minute += i;
+            minutes.push(minute);
+        }
+        return minutes;
     }
 }

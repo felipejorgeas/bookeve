@@ -11,3 +11,4 @@ var CepService = function ($http) {
     return cep;
 };
 CepService.$inject = ['$http'];
+angular.module('bookeve').factory('CepService', CepService);

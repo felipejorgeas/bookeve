@@ -1,4 +1,4 @@
-var EventoController = function ($rootScope, $routeParams, BookEveAPIService, AuthenticationService, CepService) {
+var EventoController = function ($rootScope, $routeParams, $timeout, BookEveAPIService, AuthenticationService, CepService) {
     var self = this;
     self.status = [
         {
@@ -38,11 +38,24 @@ var EventoController = function ($rootScope, $routeParams, BookEveAPIService, Au
             if (response.status) {
                 var evento = response.data;
                 self.event = evento;
-                if (self.event.banner.length) {
+                var dateIni = new Date(self.event.dateIni);
+                var dateFin = new Date(self.event.dateFin);
+                self.event.dateIniFormat = {
+                    date: Utils.getDateFormat(dateIni),
+                    hour: Utils.getDateZeroFormat(dateIni.getHours()),
+                    minute: Utils.getDateZeroFormat(dateIni.getMinutes()),
+                };
+                self.event.dateFinFormat = {
+                    date: Utils.getDateFormat(dateFin),
+                    hour: Utils.getDateZeroFormat(dateFin.getHours()),
+                    minute: Utils.getDateZeroFormat(dateFin.getMinutes()),
+                };
+                if (self.event.banner.length && document.getElementById('banner')) {
                     var image = BookEveAPIService.getApiUrl() + '/banners/' + self.event.id + '/' + self.event.banner;
                     self.bannerLoaded = true;
                     document.getElementById('banner').style.backgroundImage = 'url("' + image + '")';
                 }
+                self.inscricao(self.event.id);
             } else {
                 alert(response.message);
             }
@@ -187,6 +200,10 @@ var EventoController = function ($rootScope, $routeParams, BookEveAPIService, Au
         $rootScope.loadPage('/painel/eventos/' + eventId);
     };
     self.salvar = function (event) {
+        var dateIni = Utils.getDateDbFormat(event.dateIniFormat.date) + ' ' + event.dateIniFormat.hour + ':' + event.dateIniFormat.minute;
+        var dateFin = Utils.getDateDbFormat(event.dateFinFormat.date) + ' ' + event.dateFinFormat.hour + ':' + event.dateFinFormat.minute;
+        event.dateIni = dateIni;
+        event.dateFin = dateFin;
         if (!event.id) {
             event.userId = AuthenticationService.getUserAuthenticated().id;
             BookEveAPIService.Event.insert(event, self.salvarEventoResponse);
@@ -231,16 +248,97 @@ var EventoController = function ($rootScope, $routeParams, BookEveAPIService, Au
             self.event.state = response.uf;
         }
     };
+    self.getMap = function (evento) {
+        var address = evento.address + ', ' + evento.number + ', ' + evento.city + ', ' + evento.state + ' - ' + evento.zip;
+        var map = new google.maps.Map(document.getElementById('event-map'), {
+            zoom: 14,
+        });
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({ 'address': address }, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                map.setCenter(results[0].geometry.location);
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location,
+                    title: address
+                });
+                var infowindow = new google.maps.InfoWindow({
+                    content: address
+                });
+                marker.addListener('click', function () {
+                    infowindow.open(map, marker);
+                });
+            }
+        });
+    };
+    self.getOrganizador = function (evento) {
+        var organizador = '';
+        if (evento.organizer) {
+            organizador = evento.organizer.name + ' - ' + evento.organizer.email;
+        }
+        return organizador;
+    };
+    self.participar = function (evento) {
+        if (confirm('Deseja confirmar sua inscrição para este evento?')) {
+            var user = AuthenticationService.getUserAuthenticated();
+            BookEveAPIService.Event.participe(evento, user, self.participarEventoResponse);
+        }
+    };
+    self.participarEventoResponse = function (resp) {
+        if (resp && resp.status === 200 && resp.data) {
+            var response = resp.data;
+            if (response.status === 200) {
+                alert('Inscrição confirmada!');
+                self.inscricao(response.data.eventId);
+            } else {
+                alert(response.message);
+            }
+        }
+    };
+    self.cancelar = function (evento) {
+        if (confirm('Deseja cancelar sua inscrição para este evento?')) {
+            BookEveAPIService.Event.participeDelete(self.event.inscricao, self.cancelarEventoResponse);
+        }
+    };
+    self.cancelarEventoResponse = function (resp) {
+        if (resp && resp.status === 200 && resp.data) {
+            var response = resp.data;
+            if (response.status === 200) {
+                alert('Inscrição cancelada!');
+                self.event.inscricao = false;
+            } else {
+                alert(response.message);
+            }
+        }
+    };
+    self.inscricao = function (eventoId) {
+        var user = AuthenticationService.getUserAuthenticated();
+        BookEveAPIService.Event.participeFind(eventoId, user.id, self.inscricaoEventoResponse);
+    };
+    self.inscricaoEventoResponse = function (resp) {
+        if (resp && resp.status === 200 && resp.data) {
+            var response = resp.data;
+            if (response.status === 200 && !response.data.deleted) {
+                self.event.inscricao = response.data.id;
+            }
+        }
+    };
     self.init = function () {
         self.accessAdm = AuthenticationService.getUserAuthenticated().accessLevel === 'administrador' ? true : false;
         self.accessOrg = AuthenticationService.getUserAuthenticated().accessLevel === 'organizador' ? true : false;
         var eventId = $routeParams.id;
         if (eventId > 0) {
             self.getEvento(eventId);
+            self.hours = Utils.getHours();
+            self.minutes = Utils.getMinutes();
+            $timeout(function () {
+                self.getMap(self.event);
+            }, 2000);
         } else {
             self.getEventos();
         }
     };
     self.init();
 };
-EventoController.$inject = ['$rootScope', '$routeParams', 'BookEveAPIService', 'AuthenticationService', 'CepService'];
+EventoController.$inject = ['$rootScope', '$routeParams', '$timeout', 'BookEveAPIService', 'AuthenticationService', 'CepService'];
+angular.module('bookeve').controller('EventoController', EventoController);

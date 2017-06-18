@@ -1,4 +1,4 @@
-<div ng-controller="PainelController as painel">
+<div id="painel" ng-controller="PainelController as painel">
     <my-panel-menu></my-panel-menu>
     <div class="title painel-title">
         <span>Edição de usuário</span>
@@ -23,6 +23,13 @@
                 <td>Nome</td>
                 <td>
                     <input type="text" ng-model="usuarioCtrl.user.name" /> 
+                </td>
+            </tr>
+            <tr>
+                <td>Gênero</td>
+                <td>
+                    <input id="gender-masculino" type="radio" ng-model="usuarioCtrl.user.gender" value="masculino" /> <label for="gender-masculino">Masculino</label>
+                    <input id="gender-feminino" type="radio" ng-model="usuarioCtrl.user.gender" value="feminino" /> <label for="gender-feminino">Feminino</label>
                 </td>
             </tr>
             <tr>

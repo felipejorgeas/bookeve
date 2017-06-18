@@ -76,3 +76,4 @@ var AuthenticationService = function (BookEveAPIService) {
     return auth;
 };
 AuthenticationService.$inject = ['BookEveAPIService'];
+angular.module('bookeve').factory('AuthenticationService', AuthenticationService);

@@ -38,14 +38,14 @@
                     <p>{{event.dateIni | date: 'dd/MM/yyyy'}}</p>
                 </div>
             </div>
-            <div class="event-banner">
+            <div class="event-banner" ng-click="homeCtrl.loadEvent(event.id)">
                 <img ng-src="{{homeCtrl.getBanner(event)}}" />
             </div>
             <div class="event-info">
                 <p>{{event.description}}</p>
             </div>
             <div class="event-mais-info">
-                <button class="right" type="button">+ informações</button>
+                <button class="right" type="button" ng-click="homeCtrl.loadEvent(event.id)">+ informações</button>
             </div>
         </div>
         <div id="paginator">

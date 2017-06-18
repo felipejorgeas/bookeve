@@ -22,7 +22,7 @@ a {
 a.link-hover:hover {
     border-bottom: 4px solid #00ADEE;
 }
-input, select{
+input:not([type=radio]), select{
     width: 100%;
     padding: 10px 10px;
     border-radius: 2px;
@@ -32,6 +32,10 @@ input, select{
     -webkit-transition: all 0.5s;
     -moz-transition: all 0.5s;
     transition: all 0.5s;
+}
+input[type=radio] + label{
+    margin-right: 10px;
+    cursor: pointer;
 }
 textarea{
     width: 100%;
@@ -57,6 +61,15 @@ button{
 button:hover{
     background-color: #02A1DB;
 }
+select option:empty { 
+    display:none 
+}
+.size-min{
+    width: 60px;
+}
+.size-medium{
+    width: 120px;
+}
 .bd-top{
     border-top: 1px solid #EFEFEF;
 }
@@ -65,6 +78,9 @@ button:hover{
 }
 .danger{
     background: #EC008C;
+}
+.danger:hover{
+    background: #EC0050;
 }
 .right{
     float: right;
@@ -106,6 +122,9 @@ button:hover{
 }
 .text-large{
     font-size: large;
+}
+.float-button{
+    float: right;
 }
 #header {
     position: fixed;
@@ -222,6 +241,7 @@ button:hover{
     height: 400px; 
     float: left;
     overflow: hidden;
+    cursor: pointer;
 }
 .event-banner img{
     object-fit: cover;
@@ -233,6 +253,25 @@ button:hover{
     float: left;   
     padding: 15px;
     font-size: medium;
+}
+.event-info-block{
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #EFEFEF;
+}
+.event-info-block:last-child{
+    border-bottom: none;
+}
+.event-info-block > p:first-child{
+    font-size: small !important;
+    margin-bottom: 0 !important;
+}
+.event-info-block p.title{
+    font-size: medium !important;
+    margin-bottom: 10px !important;
+}
+.event-info table tr td{
+    padding: 0 5px 0 0;
 }
 .event-mais-info{
     width: 100%;
@@ -446,20 +485,21 @@ img.action{
     float: none;
 }
 .embed-responsive {
-    float: left;
     margin: 10px;
     position: relative;
+    display: inline-block;
+    
 }
 .embed-responsive .excluir-video {
-        padding: 5px;
-        text-align: center;
-        color: #FFFFFF;
-        background: #FF0000;
-        position: absolute;
-        top: 0;
-        right: 0;
-        cursor: pointer;
-    }
+    padding: 5px;
+    text-align: center;
+    color: #FFFFFF;
+    background: #FF0000;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}
 .embed-responsive-item {
     max-width: 400px;
     max-height: 280px;
@@ -472,6 +512,11 @@ img.action{
     margin: 0 5px 5px 0;
     padding: 5px 0 5px 10px;
 }
+.event-tags div.view {
+    padding: 5px 10px;
+    float: none;
+    display: inline-block;
+}
 .event-tags div .excluir-lecturer{
     color: #FFF;
     border-left: 1px solid #FFF;
@@ -482,7 +527,11 @@ img.action{
     border-bottom-right-radius: 3px;
     cursor: pointer;
 }
-#banner{
+#event-map {
+    height: 200px;
+    width: 100%;
+}
+#painel #banner{
     width: 100%; 
     height: 300px; 
     float: left;
@@ -494,7 +543,7 @@ img.action{
     object-fit: cover;
     background-size: cover;
 }
-#banner button{
+#painel #banner button{
     position: absolute;
     top: 50%;
     left: 50%;
@@ -503,7 +552,7 @@ img.action{
     transform: translate(-50%, -50%);
     background: #EC008C;
 }
-@media screen and (max-width: 800px){
+@media screen and (max-width: 800px){    
     .embed-responsive {
         display: block;
         height: 0;
@@ -564,9 +613,6 @@ img.action{
         border-top: 1px solid #EFEFEF;
         float: left;
     }
-    .event-header .event-info p:first-child{
-        font-size: large !important;
-    }
     .event-banner{
         height: 200px;
     }
@@ -597,7 +643,18 @@ img.action{
         font-size: small;
     }
     button{
-        padding: 10px 15px;;
+        padding: 10px 15px;
         font-size: small;
+    }
+    .float-button{
+        width: calc(100%);
+        float: none;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border: 10px solid #FFF;
+        border-radius: 12px;
+        z-index: 2;
     }
 }

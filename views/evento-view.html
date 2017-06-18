@@ -1,0 +1,96 @@
+<div class="content-margin-top" ng-controller="HomeController as homeCtrl">
+    <section id="content-left">
+        <div id="info-logo">
+            <img src="img/logo.svg" />
+            <p class="logoname">Bookeve</p>
+            <p>
+                Tudo em eventos {{home.teste}}
+            </p>
+        </div>
+        <article id="events-mini">
+            <div class="event-mini-block" ng-repeat="a in [1, 2]">
+                <div class="event-mini-banner">
+                    <img src="img/banner.jpg" />
+                </div>
+                <div class="event-mini-info">
+                    <p>Nome do evento</p>
+                    <p>20 outubro 2016</p>
+                </div>
+            </div>
+        </article>
+        <article id="events-small">
+            <div class="event-small" ng-repeat="c in [1, 2, 3]">
+                <div class="event-small-banner">
+                    <img src="img/banner.jpg" />
+                </div>
+                <div class="event-small-info">
+                    <p>Nome evento</p>
+                    <p>12 agosto 2016</p>
+                </div>
+            </div>
+        </article>
+    </section>
+    <section id="content-right">
+        <div class="event">
+            <div class="event-banner">
+                <img ng-src="{{homeCtrl.getBanner(eventoCtrl.event)}}" />
+            </div>
+            <div class="event-header">
+                <div class="event-info">
+                    <p>{{eventoCtrl.event.name}}</p>
+                    <div class="event-info-block">
+                        <button ng-if="!eventoCtrl.event.inscricao" class="float-button" type="button" ng-click="eventoCtrl.participar(eventoCtrl.event)">Participar</button>
+                        <button ng-if="eventoCtrl.event.inscricao" class="float-button danger" type="button" ng-click="eventoCtrl.cancelar(eventoCtrl.event)">Cancelar inscrição</button>
+                        <table>
+                            <tr>
+                                <td>Início:</td>
+                                <td>{{eventoCtrl.event.dateIni | date: 'dd/MM/yyyy'}} às {{eventoCtrl.event.dateIni | date: 'H:m'}}
+                                    hs
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Término:</td>
+                                <td>{{eventoCtrl.event.dateFin | date: 'dd/MM/yyyy'}} às {{eventoCtrl.event.dateFin | date: 'H:m'}}hs</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="event-info-block">
+                        <p>{{eventoCtrl.event.address}}, {{eventoCtrl.event.number}} {{eventoCtrl.event.complement}}, {{eventoCtrl.event.neighborhood}}</p>
+                        <p>{{eventoCtrl.event.city}} - {{eventoCtrl.event.state}}</p>
+                        <p>{{eventoCtrl.event.zip}}</p>
+                    </div>
+                    <div class="event-info-block">
+                        <p>{{eventoCtrl.event.description}}</p>
+                    </div>
+                    <div class="event-info-block">
+                        <div class="embed-responsive view embed-responsive-16by9 ng-scope" ng-repeat="video in eventoCtrl.event.videos track by $index">
+                            <youtube-video class="embed-responsive-item" video-url="video.url"></youtube-video>
+                        </div>
+                    </div>
+                    <div class="event-info-block">
+                        <p class="title">Palestrantes</p>
+                        <div class="event-tags">
+                            <div class="view" ng-repeat="palestrante in eventoCtrl.event.lecturers track by $index">
+                            {{palestrante.name}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="event-info-block">
+                        <p class="title">Organizador</p>
+                        <p>{{eventoCtrl.getOrganizador(eventoCtrl.event)}}</p>
+                    </div>
+                    <div class="event-info-block">
+                        <p class="title">Local do evento</p>
+                        <div id="event-map"></div>
+                    </div>                    
+                </div>
+            </div>
+            <div class="event-info">
+                <p>{{event.description}}</p>
+            </div>
+        </div>
+    </section>
+    <p class="copyright text-center text-small">
+        © Copyright - Bookeve
+    </p>
+</div>

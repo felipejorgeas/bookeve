@@ -28,6 +28,10 @@ angular.module('bookeve').config(function ($routeProvider) {
                 templateUrl: 'views/home.html',
                 controller: 'HomeController as homeCtrl'
             })
+            .when('/evento/:id', {
+                templateUrl: 'views/evento-view.html',
+                controller: 'EventoController as eventoCtrl',
+            })
             .when('/cadastro', {
                 templateUrl: 'views/cadastro.html',
             })
@@ -60,11 +64,3 @@ angular.module('bookeve').config(function ($routeProvider) {
             })
             .otherwise('/');
 });
-angular.module('bookeve').factory('CepService', CepService);
-angular.module('bookeve').factory('AuthenticationService', AuthenticationService);
-angular.module('bookeve').factory('BookEveAPIService', BookEveAPIService);
-angular.module('bookeve').controller('AppController', AppController);
-angular.module('bookeve').controller('HomeController', HomeController);
-angular.module('bookeve').controller('PainelController', PainelController);
-angular.module('bookeve').controller('EventoController', EventoController);
-angular.module('bookeve').controller('UsuarioController', UsuarioController);
