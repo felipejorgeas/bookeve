@@ -13,6 +13,24 @@ var EventoController = function ($rootScope, $routeParams, $timeout, BookEveAPIS
     self.lecturer = '';
     self.video = '';
     self.bannerLoaded = false;
+    self.showMenu = false;
+    self.showMask = false;
+    self.showMenuOpcoes = function (evento) {
+        self.hideMenuOpcoes(function () {
+            evento.menuActive = true;
+            self.showMask = true;
+        });
+    };
+    self.hideMenuOpcoes = function (callback) {
+        self.eventos = self.eventos.map(function (event) {
+            event.menuActive = false;
+            return event;
+        });
+        self.showMask = false;
+        if(callback){
+            callback();
+        }
+    };
     self.getEventos = function () {
         var where = {
             deleted: 0

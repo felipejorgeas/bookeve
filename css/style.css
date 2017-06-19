@@ -65,10 +65,10 @@ select option:empty {
     display:none 
 }
 .size-min{
-    width: 60px;
+    width: 60px !important;
 }
 .size-medium{
-    width: 120px;
+    width: 120px !important;
 }
 .bd-top{
     border-top: 1px solid #EFEFEF;
@@ -125,6 +125,40 @@ select option:empty {
 }
 .float-button{
     float: right;
+}
+#painel{
+    position: relative;
+}
+#mask{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #000;
+    opacity: 0;
+    display: none;
+    z-index: 1;
+}
+#mask.active{
+    display: block;
+}
+.menu-options{
+    width: 200px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #CCC;
+    text-align: left;
+    display: none;
+    z-index: 2;
+}
+.menu-options.active{
+    display: block;
+}
+.menu-options li{
+    padding: 10px;
+    cursor: pointer;
 }
 #header {
     position: fixed;
@@ -448,6 +482,7 @@ select option:empty {
 }
 .grid .action{
     text-align: center;
+    position: relative;
 }
 img.action{
     width: 15px;
@@ -656,5 +691,22 @@ img.action{
         border: 10px solid #FFF;
         border-radius: 12px;
         z-index: 2;
+    }
+    .action{
+        position: normal;
+    }
+    .menu-options{
+        width: 100%;
+        position: fixed;
+        top: auto;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 2;
+    }
+    .menu-options.active{
+        position: fixed;
+        display: block;
+        
     }
 }
