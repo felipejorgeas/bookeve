@@ -138,6 +138,14 @@ var BookEveAPIService = function ($http, API_URL) {
                 });
             }
         },
+        Comunicate: {
+            send: function (data, callback) {
+                var url = apiUrl + '/comunicates/';
+                $http.post(url, data).then(function (resp) {
+                    callback(resp);
+                });
+            }
+        },
         Content: {
         }
     }

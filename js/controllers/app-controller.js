@@ -39,7 +39,13 @@ var AppController = function ($rootScope, $scope, $location, AuthenticationServi
     $scope.cadastrarResponse = function (result) {
         if (result.ok) {
             $rootScope.usuarioLogado = result.data;
-            $rootScope.loadPage('/painel');
+            var eventId = sessionStorage.getItem('redirectEvent');
+            sessionStorage.removeItem('redirectEvent');
+            if (eventId) {
+                $rootScope.loadPage('/evento/' + eventId);
+            } else {
+                $rootScope.loadPage('/painel');
+            }
         } else {
             alert(result.message);
         }
@@ -47,7 +53,13 @@ var AppController = function ($rootScope, $scope, $location, AuthenticationServi
     $scope.logarResponse = function (result) {
         if (result.ok) {
             $rootScope.usuarioLogado = result.data;
-            $rootScope.loadPage('/painel');
+            var eventId = sessionStorage.getItem('redirectEvent');
+            sessionStorage.removeItem('redirectEvent');
+            if (eventId) {
+                $rootScope.loadPage('/evento/' + eventId);
+            } else {
+                $rootScope.loadPage('/painel');
+            }
         } else {
             alert(result.message);
         }

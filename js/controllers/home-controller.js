@@ -10,7 +10,7 @@ var HomeController = function ($rootScope, BookEveAPIService) {
     self.getBanner = function (evento) {
         var image = '';
         if (evento.id) {
-            image = BookEveAPIService.getApiUrl() + '/banners/' + evento.id + '/' + evento.banner;
+            image = BookEveAPIService.getApiUrl() + '/events_content/' + evento.id + '/' + evento.banner;
         }
         return image;
     };

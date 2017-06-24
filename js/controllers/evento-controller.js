@@ -1,4 +1,4 @@
-var EventoController = function ($rootScope, $routeParams, $timeout, BookEveAPIService, AuthenticationService, CepService) {
+var EventoController = function ($rootScope, $routeParams, $timeout, BookEveAPIService, AuthenticationService, CepService, ngDialog) {
     var self = this;
     self.status = [
         {
@@ -27,7 +27,7 @@ var EventoController = function ($rootScope, $routeParams, $timeout, BookEveAPIS
             return event;
         });
         self.showMask = false;
-        if(callback){
+        if (callback) {
             callback();
         }
     };
@@ -69,7 +69,7 @@ var EventoController = function ($rootScope, $routeParams, $timeout, BookEveAPIS
                     minute: Utils.getDateZeroFormat(dateFin.getMinutes()),
                 };
                 if (self.event.banner.length && document.getElementById('banner')) {
-                    var image = BookEveAPIService.getApiUrl() + '/banners/' + self.event.id + '/' + self.event.banner;
+                    var image = BookEveAPIService.getApiUrl() + '/events_content/' + self.event.id + '/' + self.event.banner;
                     self.bannerLoaded = true;
                     document.getElementById('banner').style.backgroundImage = 'url("' + image + '")';
                 }
@@ -297,9 +297,14 @@ var EventoController = function ($rootScope, $routeParams, $timeout, BookEveAPIS
         return organizador;
     };
     self.participar = function (evento) {
-        if (confirm('Deseja confirmar sua inscrição para este evento?')) {
-            var user = AuthenticationService.getUserAuthenticated();
-            BookEveAPIService.Event.participe(evento, user, self.participarEventoResponse);
+        var user = AuthenticationService.getUserAuthenticated();
+        if (!user) {
+            sessionStorage.setItem('redirectEvent', evento.id);
+            $rootScope.loadPage('/login');
+        } else {
+            if (confirm('Deseja confirmar sua inscrição para este evento?')) {
+                BookEveAPIService.Event.participe(evento, user, self.participarEventoResponse);
+            }
         }
     };
     self.participarEventoResponse = function (resp) {
@@ -315,7 +320,7 @@ var EventoController = function ($rootScope, $routeParams, $timeout, BookEveAPIS
     };
     self.cancelar = function (evento) {
         if (confirm('Deseja cancelar sua inscrição para este evento?')) {
-            BookEveAPIService.Event.participeDelete(self.event.inscricao, self.cancelarEventoResponse);
+            BookEveAPIService.Event.participeDelete(evento.inscricao, self.cancelarEventoResponse);
         }
     };
     self.cancelarEventoResponse = function (resp) {
@@ -341,6 +346,17 @@ var EventoController = function ($rootScope, $routeParams, $timeout, BookEveAPIS
             }
         }
     };
+    self.comunicadoParticipantes = function (eventId) {
+        var data = {
+            eventId: eventId
+        }
+        ngDialog.open({
+            template: 'templates/popup-send-comunicate.html',
+            controller: 'ComunicadoController',
+            controllerAs: 'comunicadoCtrl',
+            data: data
+        });
+    };
     self.init = function () {
         self.accessAdm = AuthenticationService.getUserAuthenticated().accessLevel === 'administrador' ? true : false;
         self.accessOrg = AuthenticationService.getUserAuthenticated().accessLevel === 'organizador' ? true : false;
@@ -358,5 +374,5 @@ var EventoController = function ($rootScope, $routeParams, $timeout, BookEveAPIS
     };
     self.init();
 };
-EventoController.$inject = ['$rootScope', '$routeParams', '$timeout', 'BookEveAPIService', 'AuthenticationService', 'CepService'];
+EventoController.$inject = ['$rootScope', '$routeParams', '$timeout', 'BookEveAPIService', 'AuthenticationService', 'CepService', 'ngDialog'];
 angular.module('bookeve').controller('EventoController', EventoController);

@@ -1,0 +1,20 @@
+<div>
+    <div class="title painel-title">
+        <span>Envio de comunicados via email para participantes</span>
+    </div>
+    <form ng-submit="comunicadoCtrl.send()">
+        <table class="form">
+            <tr>
+                <td class="text-left">
+                    Mensagem<br/>
+                    <textarea ng-model="comunicadoCtrl.comunicado"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="bd-top">
+                    <button type="submit">Enviar</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>

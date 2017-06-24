@@ -108,20 +108,23 @@ select option:empty {
 .painel-title img.action{
     width: 20px;
 }
+.text-left{
+    text-align: left !important;
+}
 .text-center{
-    text-align: center;
+    text-align: center !important; 
 }
 .text-right{
-    text-align: right;
+    text-align: right !important;
 }
 .text-small{
-    font-size: small;
+    font-size: small !important;
 }
 .text-medium{
-    font-size: medium;
+    font-size: medium !important;
 }
 .text-large{
-    font-size: large;
+    font-size: large !important;
 }
 .float-button{
     float: right;
@@ -586,6 +589,16 @@ img.action{
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     background: #EC008C;
+}
+.ngdialog.ngdialog-theme-default .ngdialog-content{
+    background: #FFF !important;
+}
+.ngdialog-close{
+    background: none !important;
+}
+.ngdialog-close:focus{
+    background: none !important;
+    outline: none !important;
 }
 @media screen and (max-width: 800px){    
     .embed-responsive {
