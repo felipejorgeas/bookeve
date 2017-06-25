@@ -110,11 +110,20 @@ var BookEveAPIService = function ($http, API_URL) {
                 });
             },
             participesList: function (eventId, callback) {
-                var url = apiUrl + '/events/' + eventId + '/list';
+                var url = apiUrl + '/events/' + eventId + '/participesList';
                 $http.get(url).then(function (resp) {
                     callback(resp);
                 });
-            }
+            },
+            participatedSave: function (eventId, users, callback) {
+                var url = apiUrl + '/events/' + eventId + '/participated';
+                var data = {
+                    users: users
+                };
+                $http.put(url, data).then(function (resp) {
+                    callback(resp);
+                });
+            },
         },
         Lecturer: {
             insert: function (lecturers, callback) {

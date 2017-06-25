@@ -22,7 +22,7 @@ a {
 a.link-hover:hover {
     border-bottom: 4px solid #00ADEE;
 }
-input:not([type=radio]), select{
+input:not([type=radio]):not([type=checkbox]), select{
     width: 100%;
     padding: 10px 10px;
     border-radius: 2px;
@@ -33,7 +33,7 @@ input:not([type=radio]), select{
     -moz-transition: all 0.5s;
     transition: all 0.5s;
 }
-input[type=radio] + label{
+input[type=radio] + label, input[type=checkbox] + label{
     margin-right: 10px;
     cursor: pointer;
 }
@@ -591,7 +591,7 @@ img.action{
     background: #EC008C;
 }
 .ngdialog.ngdialog-theme-default .ngdialog-content{
-    background: #FFF !important;
+    background: #FFF !important;    
 }
 .ngdialog-close{
     background: none !important;
@@ -599,6 +599,17 @@ img.action{
 .ngdialog-close:focus{
     background: none !important;
     outline: none !important;
+}
+.event-presenca{
+    width: 100%;
+    max-height: 400px;
+    list-style: none;
+    padding: 0;
+    overflow-y: auto;
+}
+.event-presenca li{
+    padding: 5px 0;
+    border-top: 1px solid #EFEFEF;
 }
 @media screen and (max-width: 800px){    
     .embed-responsive {

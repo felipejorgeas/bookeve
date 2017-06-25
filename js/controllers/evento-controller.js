@@ -1,4 +1,4 @@
-var EventoController = function ($rootScope, $routeParams, $timeout, BookEveAPIService, AuthenticationService, CepService, ngDialog) {
+var EventoController = function ($scope, $rootScope, $routeParams, $timeout, BookEveAPIService, AuthenticationService, CepService, ngDialog) {
     var self = this;
     self.status = [
         {
@@ -12,6 +12,7 @@ var EventoController = function ($rootScope, $routeParams, $timeout, BookEveAPIS
     self.event = {};
     self.lecturer = '';
     self.video = '';
+    self.participatedAllUsers = false;
     self.bannerLoaded = false;
     self.showMenu = false;
     self.showMask = false;
@@ -72,6 +73,9 @@ var EventoController = function ($rootScope, $routeParams, $timeout, BookEveAPIS
                     var image = BookEveAPIService.getApiUrl() + '/events_content/' + self.event.id + '/' + self.event.banner;
                     self.bannerLoaded = true;
                     document.getElementById('banner').style.backgroundImage = 'url("' + image + '")';
+                }
+                if (!$scope.ngDialogData) {
+                    delete self.event.users;
                 }
                 self.inscricao(self.event.id);
             } else {
@@ -267,27 +271,29 @@ var EventoController = function ($rootScope, $routeParams, $timeout, BookEveAPIS
         }
     };
     self.getMap = function (evento) {
-        var address = evento.address + ', ' + evento.number + ', ' + evento.city + ', ' + evento.state + ' - ' + evento.zip;
-        var map = new google.maps.Map(document.getElementById('event-map'), {
-            zoom: 14,
-        });
-        var geocoder = new google.maps.Geocoder();
-        geocoder.geocode({ 'address': address }, function (results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                map.setCenter(results[0].geometry.location);
-                var marker = new google.maps.Marker({
-                    map: map,
-                    position: results[0].geometry.location,
-                    title: address
-                });
-                var infowindow = new google.maps.InfoWindow({
-                    content: address
-                });
-                marker.addListener('click', function () {
-                    infowindow.open(map, marker);
-                });
-            }
-        });
+        if (document.getElementById('event-map')) {
+            var address = evento.address + ', ' + evento.number + ', ' + evento.city + ', ' + evento.state + ' - ' + evento.zip;
+            var map = new google.maps.Map(document.getElementById('event-map'), {
+                zoom: 14,
+            });
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode({ 'address': address }, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    map.setCenter(results[0].geometry.location);
+                    var marker = new google.maps.Marker({
+                        map: map,
+                        position: results[0].geometry.location,
+                        title: address
+                    });
+                    var infowindow = new google.maps.InfoWindow({
+                        content: address
+                    });
+                    marker.addListener('click', function () {
+                        infowindow.open(map, marker);
+                    });
+                }
+            });
+        }
     };
     self.getOrganizador = function (evento) {
         var organizador = '';
@@ -357,7 +363,6 @@ var EventoController = function ($rootScope, $routeParams, $timeout, BookEveAPIS
             data: data
         });
     };
-
     self.listaParticipantes = function (eventoId) {
         BookEveAPIService.Event.participesList(eventoId, self.listaParticipantesResponse);
     };
@@ -372,10 +377,50 @@ var EventoController = function ($rootScope, $routeParams, $timeout, BookEveAPIS
             }
         }
     };
+    self.presenca = function (eventId) {
+        var data = {
+            eventId: eventId
+        }
+        ngDialog.open({
+            template: 'templates/popup-event-participated.html',
+            controller: 'EventoController',
+            controllerAs: 'eventoCtrl',
+            data: data
+        });
+    };
+    self.setParticipatedAllUsers = function () {
+        self.participatedAllUsers = !self.participatedAllUsers;
+        var set = self.participatedAllUsers ? 1 : 0;
+        var users = self.event.users.map(function (user) {
+            user.Events[0].EventsUsers.participated = set;
+            return user;
+        });
+        self.event.users = users;
+    };
+    self.saveParticipated = function (eventoId) {
+        var users = self.event.users.map(function (user) {
+            var eventUser = {
+                userId: user.id,
+                participated: user.Events[0].EventsUsers.participated
+            }
+            return eventUser;
+        });
+        BookEveAPIService.Event.participatedSave(eventoId, users, self.saveParticipatedResponse);
+    };
+    self.saveParticipatedResponse = function (resp) {
+        if (resp && resp.status === 200 && resp.data) {
+            var response = resp.data;
+            if (response.status === 200) {
+                ngDialog.closeAll();
+            } else {
+                alert(response.message);
+            }
+        }
+    };
     self.init = function () {
         self.accessAdm = AuthenticationService.getUserAuthenticated().accessLevel === 'administrador' ? true : false;
         self.accessOrg = AuthenticationService.getUserAuthenticated().accessLevel === 'organizador' ? true : false;
-        var eventId = $routeParams.id;
+        var eventId = $routeParams.id || ($scope.ngDialogData && $scope.ngDialogData.eventId);
         if (eventId > 0) {
             self.getEvento(eventId);
             self.hours = Utils.getHours();
@@ -389,5 +434,5 @@ var EventoController = function ($rootScope, $routeParams, $timeout, BookEveAPIS
     };
     self.init();
 };
-EventoController.$inject = ['$rootScope', '$routeParams', '$timeout', 'BookEveAPIService', 'AuthenticationService', 'CepService', 'ngDialog'];
+EventoController.$inject = ['$scope', '$rootScope', '$routeParams', '$timeout', 'BookEveAPIService', 'AuthenticationService', 'CepService', 'ngDialog'];
 angular.module('bookeve').controller('EventoController', EventoController);

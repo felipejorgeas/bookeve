@@ -1,0 +1,26 @@
+<div>
+    <div class="title painel-title">
+        <span>Preenchimento de presença</span>
+    </div>
+    <form ng-submit="eventoCtrl.saveParticipated(eventoCtrl.event.id)">
+        <table class="form">
+            <tr>
+                <td class="text-left">
+                    <input id="all-users" type="checkbox" ng-checked="eventoCtrl.participatedAllUsers" ng-click="eventoCtrl.setParticipatedAllUsers()">
+                    <label for="all-users">Marcar todos</label>
+                    <ul class="event-presenca">
+                        <li ng-repeat="user in eventoCtrl.event.users">
+                            <input id="{{$index}}" type="checkbox" ng-model="user.Events[0].EventsUsers.participated" ng-checked="user.Events[0].EventsUsers.participated || user.Events[0].EventsUsers.participated == 1">
+                            <label for="{{$index}}">{{user.name}}</label>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="bd-top">
+                    <button type="submit">Salvar</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
