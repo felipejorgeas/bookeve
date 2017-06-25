@@ -124,6 +124,18 @@ var BookEveAPIService = function ($http, API_URL) {
                     callback(resp);
                 });
             },
+            participesCrachas: function (eventId, callback) {
+                var url = apiUrl + '/events/' + eventId + '/participesCrachas';
+                $http.get(url).then(function (resp) {
+                    callback(resp);
+                });
+            },
+            participesCertificates: function (eventId, callback) {
+                var url = apiUrl + '/events/' + eventId + '/participesCertificates';
+                $http.get(url).then(function (resp) {
+                    callback(resp);
+                });
+            }
         },
         Lecturer: {
             insert: function (lecturers, callback) {

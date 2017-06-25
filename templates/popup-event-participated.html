@@ -10,7 +10,7 @@
                     <label for="all-users">Marcar todos</label>
                     <ul class="event-presenca">
                         <li ng-repeat="user in eventoCtrl.event.users">
-                            <input id="{{$index}}" type="checkbox" ng-model="user.Events[0].EventsUsers.participated" ng-checked="user.Events[0].EventsUsers.participated || user.Events[0].EventsUsers.participated == 1">
+                            <input id="{{$index}}" type="checkbox" ng-model="user.Events[0].EventsUsers.participated" >
                             <label for="{{$index}}">{{user.name}}</label>
                         </li>
                     </ul>

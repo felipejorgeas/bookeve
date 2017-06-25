@@ -371,7 +371,7 @@ var EventoController = function ($scope, $rootScope, $routeParams, $timeout, Boo
             var response = resp.data;
             if (response.status === 200 && !response.data.deleted) {
                 var url_file = BookEveAPIService.getApiUrl() + '/events_content/' + response.data.eventId + '/' + response.data.filename;
-                window.open(url_file, 'Lista de participantes', 'width=600,height=400,scrollbars=yes');
+                window.open(url_file, 'Lista de participantes', 'width=800,height=600,scrollbars=yes');
             } else {
                 alert(response.message);
             }
@@ -390,7 +390,7 @@ var EventoController = function ($scope, $rootScope, $routeParams, $timeout, Boo
     };
     self.setParticipatedAllUsers = function () {
         self.participatedAllUsers = !self.participatedAllUsers;
-        var set = self.participatedAllUsers ? 1 : 0;
+        var set = self.participatedAllUsers
         var users = self.event.users.map(function (user) {
             user.Events[0].EventsUsers.participated = set;
             return user;
@@ -412,6 +412,34 @@ var EventoController = function ($scope, $rootScope, $routeParams, $timeout, Boo
             var response = resp.data;
             if (response.status === 200) {
                 ngDialog.closeAll();
+            } else {
+                alert(response.message);
+            }
+        }
+    };
+    self.crachas = function (eventoId) {
+        BookEveAPIService.Event.participesCrachas(eventoId, self.crachasResponse);
+    };
+    self.crachasResponse = function (resp) {
+        if (resp && resp.status === 200 && resp.data) {
+            var response = resp.data;
+            if (response.status === 200 && !response.data.deleted) {
+                var url_file = BookEveAPIService.getApiUrl() + '/events_content/' + response.data.eventId + '/' + response.data.filename;
+                window.open(url_file, 'Crachás', 'width=800,height=600,scrollbars=yes');
+            } else {
+                alert(response.message);
+            }
+        }
+    };
+    self.certificados = function (eventoId) {
+        BookEveAPIService.Event.participesCertificates(eventoId, self.certificadosResponse);
+    };
+    self.certificadosResponse = function (resp) {
+        if (resp && resp.status === 200 && resp.data) {
+            var response = resp.data;
+            if (response.status === 200 && !response.data.deleted) {
+                var url_file = BookEveAPIService.getApiUrl() + '/events_content/' + response.data.eventId + '/' + response.data.filename;
+                window.open(url_file, 'Certificados', 'width=800,height=600,scrollbars=yes');
             } else {
                 alert(response.message);
             }
