@@ -108,6 +108,12 @@ var BookEveAPIService = function ($http, API_URL) {
                 $http.get(url).then(function (resp) {
                     callback(resp);
                 });
+            },
+            participesList: function (eventId, callback) {
+                var url = apiUrl + '/events/' + eventId + '/list';
+                $http.get(url).then(function (resp) {
+                    callback(resp);
+                });
             }
         },
         Lecturer: {

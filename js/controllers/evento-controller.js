@@ -357,6 +357,21 @@ var EventoController = function ($rootScope, $routeParams, $timeout, BookEveAPIS
             data: data
         });
     };
+
+    self.listaParticipantes = function (eventoId) {
+        BookEveAPIService.Event.participesList(eventoId, self.listaParticipantesResponse);
+    };
+    self.listaParticipantesResponse = function (resp) {
+        if (resp && resp.status === 200 && resp.data) {
+            var response = resp.data;
+            if (response.status === 200 && !response.data.deleted) {
+                var url_file = BookEveAPIService.getApiUrl() + '/events_content/' + response.data.eventId + '/' + response.data.filename;
+                window.open(url_file, 'Lista de participantes', 'width=600,height=400,scrollbars=yes');
+            } else {
+                alert(response.message);
+            }
+        }
+    };
     self.init = function () {
         self.accessAdm = AuthenticationService.getUserAuthenticated().accessLevel === 'administrador' ? true : false;
         self.accessOrg = AuthenticationService.getUserAuthenticated().accessLevel === 'organizador' ? true : false;
