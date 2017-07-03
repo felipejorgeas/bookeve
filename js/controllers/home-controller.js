@@ -27,6 +27,9 @@ var HomeController = function ($rootScope, BookEveAPIService) {
     self.loadEvent = function (eventId) {
         $rootScope.loadPage('/evento/' + eventId);
     };
+    self.random = function(){
+        return 0.5 - Math.random();
+    };
     self.init = function () {
         self.getEventos();
     }

@@ -1,4 +1,4 @@
-angular.module('bookeve', ['ngRoute', 'youtube-embed', 'ngDialog']);
+angular.module('bookeve', ['ngRoute', 'youtube-embed', 'ngDialog', 'googlechart']);
 angular.module('bookeve').config(function ($routeProvider) {
     var accessRestrict = {
         verify1: function ($q, AuthenticationService) {
@@ -39,7 +39,13 @@ angular.module('bookeve').config(function ($routeProvider) {
                 templateUrl: 'views/login.html',
             })
             .when('/painel', {
-                templateUrl: 'views/painel.html',
+                templateUrl: 'views/painel-eventos.html',
+                controller: 'EventoController as eventoCtrl',
+                resolve: accessRestrict
+            })
+            .when('/painel/relatorios/:id', {
+                templateUrl: 'views/painel-relatorios.html',
+                controller: 'RelatorioController as relatorioCtrl',
                 resolve: accessRestrict
             })
             .when('/painel/eventos', {

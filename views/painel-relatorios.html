@@ -1,0 +1,15 @@
+<div id="painel" ng-controller="PainelController as painel">
+    <my-panel-menu></my-panel-menu>
+    <div class="title painel-title">
+        <span>Relatórios de evento</span>
+        <div class="right">
+            <button type="button" ng-click="app.loadPage('/painel/eventos')">Voltar</button>
+        </div>
+    </div>
+    <div class="painel-container">
+        <h1 class="title">{{relatorioCtrl.event.name}}</h1>
+        <div class="chart" google-chart chart="relatorioCtrl.chartGenero"></div>
+        <div class="chart" google-chart chart="relatorioCtrl.chartEstado"></div>
+        <div class="chart chart-full" google-chart chart="relatorioCtrl.chartCidade"></div>
+    </div>
+</div>

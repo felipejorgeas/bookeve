@@ -1,0 +1,31 @@
+<div>
+    <div id="info-logo">
+        <img src="img/logo.svg" />
+        <p class="logoname">Bookeve</p>
+        <p>
+            Tudo em eventos {{home.teste}}
+        </p>
+    </div>
+    <article id="events-mini">
+        <div class="event-mini-block" ng-repeat="event in homeCtrl.eventos |orderBy: homeCtrl.random track by $index">
+            <div class="event-mini-banner" ng-click="homeCtrl.loadEvent(event.id)">
+                <img ng-src="{{homeCtrl.getBanner(event)}}" />
+            </div>
+            <div class="event-mini-info">
+                <p>{{event.name}}</p>
+                <p>{{event.dateIni | date: 'dd/MM/yyyy'}}</p>
+            </div>
+        </div>
+    </article>
+    <article id="events-small">
+        <div class="event-small" ng-repeat="event in homeCtrl.eventos |orderBy: homeCtrl.random track by $index">
+            <div class="event-small-banner" ng-click="homeCtrl.loadEvent(event.id)">
+                <img ng-src="{{homeCtrl.getBanner(event)}}" />
+            </div>
+            <div class="event-small-info">
+                <p>{{event.name}}</p>
+                <p>{{event.dateIni | date: 'dd/MM/yyyy'}}</p>
+            </div>
+        </div>
+    </article>
+</div>

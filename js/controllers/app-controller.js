@@ -14,6 +14,9 @@ var AppController = function ($rootScope, $scope, $location, AuthenticationServi
     $rootScope.loadPage = function (page) {
         $location.path(page);
     }
+    $rootScope.getCurrentPage = function () {
+        return $location.path();
+    }
     $rootScope.cadastrar = function (user) {
         if (!user || !user.nome || !user.email || !user.senha) {
             alert("Favor preencher os dados de acesso corretamente!");
@@ -28,8 +31,15 @@ var AppController = function ($rootScope, $scope, $location, AuthenticationServi
             AuthenticationService.auth(user, $scope.logarResponse);
         }
     }
-    $rootScope.logout = function () {
-        if (confirm('Deseja sair da sua conta?')) {
+    $rootScope.logout = function (inibConfirm) {
+        if (!inibConfirm) {
+            if (confirm('Deseja sair da sua conta?')) {
+                if (AuthenticationService.logout()) {
+                    $rootScope.usuarioLogado = false;
+                    $rootScope.loadPage('/login');
+                }
+            }
+        } else {
             if (AuthenticationService.logout()) {
                 $rootScope.usuarioLogado = false;
                 $rootScope.loadPage('/login');

@@ -1,34 +1,6 @@
 <div class="content-margin-top" ng-controller="HomeController as homeCtrl">
     <section id="content-left">
-        <div id="info-logo">
-            <img src="img/logo.svg" />
-            <p class="logoname">Bookeve</p>
-            <p>
-                Tudo em eventos {{home.teste}}
-            </p>
-        </div>
-        <article id="events-mini">
-            <div class="event-mini-block" ng-repeat="a in [1, 2]">
-                <div class="event-mini-banner">
-                    <img src="img/banner.jpg" />
-                </div>
-                <div class="event-mini-info">
-                    <p>Nome do evento</p>
-                    <p>20 outubro 2016</p>
-                </div>
-            </div>
-        </article>
-        <article id="events-small">
-            <div class="event-small" ng-repeat="c in [1, 2, 3]">
-                <div class="event-small-banner">
-                    <img src="img/banner.jpg" />
-                </div>
-                <div class="event-small-info">
-                    <p>Nome evento</p>
-                    <p>12 agosto 2016</p>
-                </div>
-            </div>
-        </article>
+        <sidebar-events></sidebar-events>
     </section>
     <section id="content-right">
         <div class="event">
@@ -62,12 +34,12 @@
                     <div class="event-info-block">
                         <p>{{eventoCtrl.event.description}}</p>
                     </div>
-                    <div class="event-info-block">
+                    <div class="event-info-block" ng-if="eventoCtrl.event.videos.length">
                         <div class="embed-responsive view embed-responsive-16by9 ng-scope" ng-repeat="video in eventoCtrl.event.videos track by $index">
                             <youtube-video class="embed-responsive-item" video-url="video.url"></youtube-video>
                         </div>
                     </div>
-                    <div class="event-info-block">
+                    <div class="event-info-block" ng-if="eventoCtrl.event.lecturers.length">
                         <p class="title">Palestrantes</p>
                         <div class="event-tags">
                             <div class="view" ng-repeat="palestrante in eventoCtrl.event.lecturers track by $index">

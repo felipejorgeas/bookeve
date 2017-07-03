@@ -4,55 +4,99 @@
     <div class="title painel-title">
         <span>Lista de eventos</span>
         <div class="right">
-            <button type="button" ng-click="app.loadPage('/painel/eventos/0')">Novo evento</button>
+            <button type="button" ng-if="!eventoCtrl.accessUser" ng-click="app.loadPage('/painel/eventos/0')">Novo evento</button>
         </div>
     </div>
+</div>
+<div class="painel-container">
+    <p class="text-center" ng-if="!eventoCtrl.eventos.length">Nenhum evento disponível</p>
+    <div ng-if="eventoCtrl.eventos.length">
+        <ul class="tabs" ng-if="!eventoCtrl.accessUser">
+            <li ng-class="{active: eventoCtrl.tab==1}" ng-click="eventoCtrl.tab=1">Como participante</li>
+            <li ng-class="{active: eventoCtrl.tab==2}" ng-click="eventoCtrl.tab=2">Como organizador</li>
+        </ul>
+        <table class="grid" ng-if="eventoCtrl.tab == 1">
+            <thead>
+                <tr>
+                    <th>#ID</th>
+                    <th>Informações</th>
+                    <th class="action"></th>
+                    <th class="action"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="event in eventoCtrl.eventos |filter: {userId: '!' +eventoCtrl.user.id} track by $index">
+                    <td>{{event.id}}</td>
+                    <td>
+                        <p>{{event.name}}</p>
+                        <p>início: {{event.dateIni | date : 'dd/MM/yyyy'}} término: {{event.dateFin | date : 'dd/MM/yyyy'}}</p>
+                        <p>{{event.vacancies}} vagas</p>
+                    </td>
+                    <td class="action">
+                        <img class="action" src="img/search.svg" alt="Visualizar" title="Visualizar" ng-click="loadPage('/evento/'+event.id)" />
+                    </td>
+                    <td class="action" ng-if="eventoCtrl.emiteCertificado(event)">
+                        <img class="action" src="img/id-card-5.svg" alt="Certificado" title="Certificado" ng-click="eventoCtrl.certificados(event.id)"
+                        />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="grid" ng-if="!eventoCtrl.accessUser && eventoCtrl.tab == 2">
+            <thead>
+                <tr>
+                    <th>#ID</th>
+                    <th>Informações</th>
+                    <th class="action"></th>
+                    <th class="action"></th>
+                    <th class="action"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="event in eventoCtrl.eventos |filter: {userId: eventoCtrl.user.id} track by $index">
+                    <td>{{event.id}}</td>
+                    <td>
+                        <p>{{event.name}}</p>
+                        <p>início: {{event.dateIni | date : 'dd/MM/yyyy'}} término: {{event.dateFin | date : 'dd/MM/yyyy'}}</p>
+                        <p>{{event.vacancies}} vagas</p>
+                    </td>
+                    <td class="action">
+                        <img class="action" src="img/edit.svg" alt="Editar" title="Editar" ng-click="eventoCtrl.editar(event.id)" />
+                    </td>
+                    <td class="action">
+                        <img class="action" src="img/multiply.svg" alt="Excluir" title="Excluir" ng-click="eventoCtrl.remover(event.id)" />
+                    </td>
+                    <td class="action">
+                        <img class="action" src="img/more.svg" alt="Mais opções" title="Mais opções" ng-click="eventoCtrl.showMenuOpcoes(event)"
+                        />
+                        <ul class="menu-options" ng-class="{active:event.menuActive}" ng-click="eventoCtrl.hideMenuOpcoes()">
+                            <li ng-click="eventoCtrl.comunicadoParticipantes(event.id)">
+                                <img class="action" src="img/megaphone-1.svg" alt="Enviar comunicado" title="Enviar comunicado" />
+                                <span>Enviar comunicado</span>
+                            </li>
+                            <li ng-click="eventoCtrl.listaParticipantes(event.id)">
+                                <img class="action" src="img/file.svg" alt="Lista de participantes" title="Lista de participantes" />
+                                <span>Lista de participantes</span>
+                            </li>
+                            <li ng-click="eventoCtrl.presenca(event.id)">
+                                <img class="action" src="img/list.svg" alt="Preencher presenças" title="Preencher presenças" />
+                                <span>Preencher presenças</span>
+                            </li>
+                            <li ng-click="eventoCtrl.crachas(event.id)">
+                                <img class="action" src="img/id-card-3.svg" alt="Crachás" title="Crachás" />
+                                <span>Crachás</span>
+                            </li>
+                            <li ng-click="eventoCtrl.certificados(event.id, true)">
+                                <img class="action" src="img/id-card-5.svg" alt="Certificados" title="Certificados" />
+                                <span>Certificados</span>
+                            </li>
+                            <li ng-click="eventoCtrl.relatorios(event.id)">
+                                <img class="action" src="img/chart.svg" alt="Relatórios" title="Relatórios" /><span>Relatórios</span>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-    <table class="grid">
-        <thead>
-            <tr>
-                <th>#ID</th>
-                <th>Informações</th>
-                <th class="action"></th>
-                <th class="action"></th>
-                <th class="action"></th>
-            </tr>
-        </thead>
-        <tbody>            
-            <tr ng-repeat="event in eventoCtrl.eventos track by $index">
-                <td>{{event.id}}</td>
-                <td>
-                    <p>{{event.name}}</p>
-                    <p>início: {{event.dateIni | date : 'dd/MM/yyyy'}} término: {{event.dateFin | date : 'dd/MM/yyyy'}}</p>
-                    <p>{{event.vacancies}} vagas</p>
-                </td>                
-                <td class="action">
-                    <img class="action" src="img/edit.svg" alt="Editar" title="Editar" ng-click="eventoCtrl.editar(event.id)" />
-                </td>
-                <td class="action">
-                    <img class="action" src="img/multiply.svg" alt="Excluir" title="Excluir" ng-click="eventoCtrl.remover(event.id)" />
-                </td>
-                <td class="action">
-                    <img class="action" src="img/more.svg" alt="Mais opções" title="Mais opções" ng-click="eventoCtrl.showMenuOpcoes(event)" />            
-                    <ul class="menu-options" ng-class="{active:event.menuActive}" ng-click="eventoCtrl.hideMenuOpcoes()">
-                        <li ng-click="eventoCtrl.comunicadoParticipantes(event.id)">
-                            <img class="action" src="img/megaphone-1.svg" alt="Enviar comunicado" title="Enviar comunicado" /> Enviar comunicado
-                        </li>                        
-                        <li ng-click="eventoCtrl.listaParticipantes(event.id)">
-                            <img class="action" src="img/file.svg" alt="Lista de participantes" title="Lista de participantes" /> Lista de participantes
-                        </li>
-                        <li ng-click="eventoCtrl.presenca(event.id)">
-                            <img class="action" src="img/list.svg" alt="Preencher presenças" title="Preencher presenças" /> Preencher presenças
-                        </li>
-                        <li ng-click="eventoCtrl.crachas(event.id)">
-                            <img class="action" src="img/id-card-3.svg" alt="Crachás" title="Crachás" /> Crachás
-                        </li>                        
-                        <li ng-click="eventoCtrl.certificados(event.id)">
-                            <img class="action" src="img/id-card-5.svg" alt="Certificados" title="Certificados" /> Certificados
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        </tbody>
-    </table>
 </div>

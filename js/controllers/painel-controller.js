@@ -3,27 +3,11 @@ var PainelController = function ($rootScope, $location, AuthenticationService) {
     self.eventos = [];
     self.menu = [
         {
-            title: 'Home',
-            active: false,
-            accessLevel: [],
-            action: function () {
-                $rootScope.loadPage('/painel');
-            }
-        },
-        {
             title: 'Eventos',
             active: false,
             accessLevel: [],
             action: function () {
                 $rootScope.loadPage('/painel/eventos');
-            }
-        },
-        {
-            title: 'Conteúdos',
-            active: false,
-            accessLevel: ['administrador', 'organizador'],
-            action: function () {
-                $rootScope.loadPage('/painel/conteudos');
             }
         },
         {
@@ -59,28 +43,13 @@ var PainelController = function ($rootScope, $location, AuthenticationService) {
         self.menu.map(function (item) {
             item.active = false;
             switch (internalPage) {
-                case 'painel':
-                    if (item.title === 'Home') {
-                        item.active = true;
-                    }
-                    break;
-                case 'eventos':
-                    if (item.title === 'Eventos') {
-                        item.active = true;
-                    }
-                    break;
-                case 'conteudos':
-                    if (item.title === 'Conteúdos') {
-                        item.active = true;
-                    }
-                    break;
                 case 'usuarios':
                     if (item.title === 'Usuários') {
                         item.active = true;
                     }
                     break;
                 default:
-                    if (item.title === 'Home') {
+                    if (item.title === 'Eventos') {
                         item.active = true;
                     }
             }

@@ -151,17 +151,25 @@ select option:empty {
     position: absolute;
     top: 0;
     right: 0;
-    background: #CCC;
+    background: #EFEFEF;
     text-align: left;
     display: none;
     z-index: 2;
+    padding: 0 10px;
 }
 .menu-options.active{
     display: block;
 }
 .menu-options li{
-    padding: 10px;
+    padding: 15px 5px;
     cursor: pointer;
+    border-bottom: 1px solid #CCC;
+}
+.menu-options li:last-child{
+    border-bottom: none;
+}
+.menu-options li img{
+    margin-right: 10px;
 }
 #header {
     position: fixed;
@@ -330,6 +338,7 @@ select option:empty {
 .event-mini-banner{
     float: left;
     height: 200px;
+    cursor: pointer;
 }
 .event-mini-banner img{
     width: 100%;
@@ -378,6 +387,7 @@ select option:empty {
     width: 80px;
     height: 80px;
     float: left;
+    cursor: pointer;
 }
 .event-small-banner img{
     width: 100%;
@@ -488,7 +498,7 @@ select option:empty {
     position: relative;
 }
 img.action{
-    width: 15px;
+    width: 20px;
     cursor: pointer;
 }
 .form{
@@ -575,11 +585,19 @@ img.action{
     float: left;
     margin-bottom: 10px; 
     background: #EFEFEF;
-    border: 2px dashed #CCC;
+    border: 1px dashed #CCC;
     border-radius: 5px;
     position: relative;
     object-fit: cover;
     background-size: cover;
+}
+#painel #banner:after{
+    content: '';
+    width: calc(100% - 2px);
+    height: calc(100% - 2px);
+    position: absolute;
+    border: 1px solid #FFF;
+    border-radius: 5px;
 }
 #painel #banner button{
     position: absolute;
@@ -610,6 +628,45 @@ img.action{
 .event-presenca li{
     padding: 5px 0;
     border-top: 1px solid #EFEFEF;
+}
+.painel-container{
+    width: 100%; 
+    background: #FFF; 
+    float: left;
+    padding: 10px 0;
+}
+.painel-container .title{
+    margin-bottom: 10px;
+    padding: 0 10px 10px;
+    border-bottom: 1px solid #EFEFEF;
+}
+.tabs{
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    float: left;
+    margin-bottom: 10px;
+}
+.tabs li {
+    display: inline-block;
+    float: left;
+    padding: 5px 10px;
+    border-bottom: 4px solid #FFF;
+    border-right: 1px solid #EFEFEF;
+    cursor: pointer;
+}
+.tabs li:last-child{
+    border-right: none;
+}
+.tabs li.active{
+    border-bottom: 4px solid #EC0050;
+}
+.chart{
+    width: 50%; 
+    float: left;
+}
+.chart-full{
+    width: 100% !important;
 }
 @media screen and (max-width: 800px){    
     .embed-responsive {
@@ -732,5 +789,22 @@ img.action{
         position: fixed;
         display: block;
         
+    }
+    .menu-options li{
+        width: calc(50% - 20px);
+        display: inline-block;
+        float: left;
+        text-align: center;
+        margin: 0 10px;
+    }
+    .menu-options li img{
+        margin: 0;
+    }
+    .menu-options li span{
+        width: 100%;
+        display: inline-block;
+    }
+    .chart{
+        width: 100%;
     }
 }

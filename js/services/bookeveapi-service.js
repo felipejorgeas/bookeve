@@ -130,8 +130,15 @@ var BookEveAPIService = function ($http, API_URL) {
                     callback(resp);
                 });
             },
-            participesCertificates: function (eventId, callback) {
+            participesCertificates: function (eventId, where, callback) {
                 var url = apiUrl + '/events/' + eventId + '/participesCertificates';
+                if (where) {
+                    var queryString = Object.keys(where).map(function (k) {
+                        k = encodeURIComponent(k) + '=' + encodeURIComponent(where[k]);
+                        return k;
+                    }).join('&');
+                    url += '?' + queryString;
+                }
                 $http.get(url).then(function (resp) {
                     callback(resp);
                 });

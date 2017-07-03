@@ -8,6 +8,8 @@ var EventoController = function ($scope, $rootScope, $routeParams, $timeout, Boo
             title: 'Ativo'
         }
     ];
+    self.tab = 1;
+    self.user = {};
     self.eventos = [];
     self.event = {};
     self.lecturer = '';
@@ -33,12 +35,35 @@ var EventoController = function ($scope, $rootScope, $routeParams, $timeout, Boo
         }
     };
     self.getEventos = function () {
-        var where = {
-            deleted: 0
-        };
-        BookEveAPIService.Event.getAll(where, self.getEventosResponse);
+        var page = $rootScope.getCurrentPage();
+        if (page.split('/')[1] == 'painel') {
+            self.getEventosPainel();
+        } else {
+            var where = {
+                deleted: 0
+            };
+            BookEveAPIService.Event.getAll(where, self.getEventosResponse);
+        }
     };
     self.getEventosResponse = function (resp) {
+        if (resp && resp.status === 200 && resp.data) {
+            var response = resp.data;
+            if (response.status) {
+                self.eventos = response.data;
+            } else {
+                alert(response.message);
+            }
+        }
+    };
+    self.getEventosPainel = function () {
+        var where = {
+            deleted: 0,
+            painel: true,
+            userId: self.user.id
+        };
+        BookEveAPIService.Event.getAll(where, self.getEventosPainelResponse);
+    };
+    self.getEventosPainelResponse = function (resp) {
         if (resp && resp.status === 200 && resp.data) {
             var response = resp.data;
             if (response.status) {
@@ -227,13 +252,14 @@ var EventoController = function ($scope, $rootScope, $routeParams, $timeout, Boo
         event.dateIni = dateIni;
         event.dateFin = dateFin;
         if (!event.id) {
-            event.userId = AuthenticationService.getUserAuthenticated().id;
-            BookEveAPIService.Event.insert(event, self.salvarEventoResponse);
+            event.userId = self.user.id;
+            BookEveAPIService.Event.insert(event, self.salvarResponse);
         } else {
-            BookEveAPIService.Event.update(event, self.salvarEventoResponse);
+            event.active = 1;
+            BookEveAPIService.Event.update(event, self.salvarResponse);
         }
     };
-    self.salvarEventoResponse = function (resp) {
+    self.salvarResponse = function (resp) {
         if (resp && resp.status === 200 && resp.data) {
             var response = resp.data;
             if (response.status === 200) {
@@ -303,13 +329,12 @@ var EventoController = function ($scope, $rootScope, $routeParams, $timeout, Boo
         return organizador;
     };
     self.participar = function (evento) {
-        var user = AuthenticationService.getUserAuthenticated();
-        if (!user) {
+        if (!self.user) {
             sessionStorage.setItem('redirectEvent', evento.id);
             $rootScope.loadPage('/login');
         } else {
             if (confirm('Deseja confirmar sua inscrição para este evento?')) {
-                BookEveAPIService.Event.participe(evento, user, self.participarEventoResponse);
+                BookEveAPIService.Event.participe(evento, self.user, self.participarEventoResponse);
             }
         }
     };
@@ -341,8 +366,7 @@ var EventoController = function ($scope, $rootScope, $routeParams, $timeout, Boo
         }
     };
     self.inscricao = function (eventoId) {
-        var user = AuthenticationService.getUserAuthenticated();
-        BookEveAPIService.Event.participeFind(eventoId, user.id, self.inscricaoEventoResponse);
+        BookEveAPIService.Event.participeFind(eventoId, self.user.id, self.inscricaoEventoResponse);
     };
     self.inscricaoEventoResponse = function (resp) {
         if (resp && resp.status === 200 && resp.data) {
@@ -431,8 +455,12 @@ var EventoController = function ($scope, $rootScope, $routeParams, $timeout, Boo
             }
         }
     };
-    self.certificados = function (eventoId) {
-        BookEveAPIService.Event.participesCertificates(eventoId, self.certificadosResponse);
+    self.certificados = function (eventoId, all) {
+        var data = {};
+        if(!all){
+            data.userId = self.user.id;
+        }
+        BookEveAPIService.Event.participesCertificates(eventoId, data, self.certificadosResponse);
     };
     self.certificadosResponse = function (resp) {
         if (resp && resp.status === 200 && resp.data) {
@@ -445,14 +473,22 @@ var EventoController = function ($scope, $rootScope, $routeParams, $timeout, Boo
             }
         }
     };
+    self.relatorios = function (eventoId) {
+        $rootScope.loadPage('/painel/relatorios/' + eventoId);
+    };
+    self.emiteCertificado = function (evento) {
+        return (new Date() > new Date(evento.dateFin));
+    };
     self.init = function () {
-        self.accessAdm = AuthenticationService.getUserAuthenticated().accessLevel === 'administrador' ? true : false;
-        self.accessOrg = AuthenticationService.getUserAuthenticated().accessLevel === 'organizador' ? true : false;
+        self.user = AuthenticationService.getUserAuthenticated();
+        self.accessAdm = self.user.accessLevel == 'administrador' ? true : false;
+        self.accessOrg = self.user.accessLevel == 'organizador' ? true : false;
+        self.accessUser = self.user.accessLevel == 'participante' ? true : false;
+        self.hours = Utils.getHours();
+        self.minutes = Utils.getMinutes();
         var eventId = $routeParams.id || ($scope.ngDialogData && $scope.ngDialogData.eventId);
         if (eventId > 0) {
             self.getEvento(eventId);
-            self.hours = Utils.getHours();
-            self.minutes = Utils.getMinutes();
             $timeout(function () {
                 self.getMap(self.event);
             }, 2000);

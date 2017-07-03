@@ -1,6 +1,7 @@
 var UsuarioController = function ($rootScope, $routeParams, BookEveAPIService, AuthenticationService, CepService) {
     var self = this;
     self.accessAdm = false;
+    self.execLogout = false;
     self.usuarios = [];
     self.user = {};
     self.genders = [
@@ -60,6 +61,10 @@ var UsuarioController = function ($rootScope, $routeParams, BookEveAPIService, A
         $rootScope.loadPage('/painel/usuarios/' + userId);
     };
     self.atualizar = function (user) {
+        var userLogged = AuthenticationService.getUserAuthenticated();
+        if(user.id == userLogged.id && user.accessLevel != userLogged.accessLevel){
+            self.execLogout = true;
+        }
         BookEveAPIService.User.update(user, self.atualizarUsuarioResponse);
     };
     self.atualizarUsuarioResponse = function (resp) {
@@ -67,6 +72,10 @@ var UsuarioController = function ($rootScope, $routeParams, BookEveAPIService, A
             var response = resp.data;
             if (response.status === 200) {
                 alert('Dados do usuário atualizados com sucesso!');
+                if(self.execLogout){
+                    alert('Será necessário logar novamente para efetivar as alterações.');
+                    $rootScope.logout(true);
+                }
             } else {
                 alert(response.message);
             }
@@ -111,6 +120,9 @@ var UsuarioController = function ($rootScope, $routeParams, BookEveAPIService, A
             }
         } else {
             self.getUsuarios();
+        }
+        if (!self.accessAdm) {
+            self.accessLevels.pop();
         }
     };
     self.init();

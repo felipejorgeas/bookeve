@@ -1,3 +1,10 @@
+angular.module('bookeve').directive('sidebarEvents', function () {
+    return {
+        replace: true,
+        templateUrl: 'templates/sidebar-events.html'
+    };
+});
+
 angular.module('bookeve').directive('myAccount', function () {
     return {
         replace: true,

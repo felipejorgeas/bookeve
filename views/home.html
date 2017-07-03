@@ -1,37 +1,9 @@
 <div class="content-margin-top">
     <section id="content-left">
-        <div id="info-logo">
-            <img src="img/logo.svg" />
-            <p class="logoname">Bookeve</p>
-            <p>
-                Tudo em eventos {{home.teste}}
-            </p>
-        </div>
-        <article id="events-mini">
-            <div class="event-mini-block" ng-repeat="a in [1, 2, 3]">
-                <div class="event-mini-banner">
-                    <img src="img/banner.jpg" />
-                </div>
-                <div class="event-mini-info">
-                    <p>Nome do evento</p>
-                    <p>20 outubro 2016</p>
-                </div>
-            </div>
-        </article>
-        <article id="events-small">
-            <div class="event-small" ng-repeat="c in [1, 2, 3, 4]">
-                <div class="event-small-banner">
-                    <img src="img/banner.jpg" />
-                </div>
-                <div class="event-small-info">
-                    <p>Nome evento</p>
-                    <p>12 agosto 2016</p>
-                </div>
-            </div>
-        </article>
+        <sidebar-events></sidebar-events>
     </section>
     <section id="content-right">
-        <div class="event" ng-repeat="event in homeCtrl.eventos">
+        <div class="event" ng-repeat="event in homeCtrl.eventos track by $index">
             <div class="event-header">
                 <div class="event-info">
                     <p>{{event.name}}</p>
