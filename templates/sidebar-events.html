@@ -7,7 +7,7 @@
         </p>
     </div>
     <article id="events-mini">
-        <div class="event-mini-block" ng-repeat="event in homeCtrl.eventos |orderBy: homeCtrl.random track by $index">
+        <div class="event-mini-block" ng-repeat="event in homeCtrl.eventosMini | limitTo: 3 track by $index">
             <div class="event-mini-banner" ng-click="homeCtrl.loadEvent(event.id)">
                 <img ng-src="{{homeCtrl.getBanner(event)}}" />
             </div>
@@ -18,7 +18,7 @@
         </div>
     </article>
     <article id="events-small">
-        <div class="event-small" ng-repeat="event in homeCtrl.eventos |orderBy: homeCtrl.random track by $index">
+        <div class="event-small" ng-repeat="event in homeCtrl.eventosSmall | limitTo: 5 track by $index">
             <div class="event-small-banner" ng-click="homeCtrl.loadEvent(event.id)">
                 <img ng-src="{{homeCtrl.getBanner(event)}}" />
             </div>
