@@ -607,6 +607,7 @@ img.action{
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     background: #EC008C;
+    z-index: 2;
 }
 .ngdialog.ngdialog-theme-default .ngdialog-content{
     background: #FFF !important;    
