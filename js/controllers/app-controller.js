@@ -18,7 +18,7 @@ var AppController = function ($rootScope, $scope, $location, AuthenticationServi
         return $location.path();
     }
     $rootScope.cadastrar = function (user) {
-        if (!user || !user.nome || !user.email || !user.senha) {
+        if (!user || !user.nome || !user.email || !user.senha || !user.accessLevel) {
             alert("Favor preencher os dados de acesso corretamente!");
         } else {
             AuthenticationService.register(user, $scope.cadastrarResponse);

@@ -14,6 +14,13 @@
                 <input type="password" ng-model="usuario.senha" placeholder="Senha de acesso" />
             </p>
             <p>
+                <select ng-model="usuario.accessLevel">
+                    <option value="">Perfil de usuário</option>
+                    <option value="participante">Participante</option>
+                    <option value="organizador">Organizador</option>
+                </select>
+            </p>
+            <p>
                 <button type="submit">Cadastrar-me</button>
             </p>
             <p>
